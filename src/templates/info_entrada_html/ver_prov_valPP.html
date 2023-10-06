@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Informe Liberado</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/ver_prov_val.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>INFORME LIBERADO PP</p>
+        </div>
+        <div class="help-icon" style="user-select: none;">
+            <i class="fas fa-question-circle" style="color: white; font-size: 20px;"></i>
+            <div class="tooltip">
+                <span>Aqui podras ver las diferencias de la MP de la Remision con la que se libero en
+                    planta. Adicional contaras
+                    con herramientas multiples como por ejemplo. Descargar Excel que te permitira descargar el
+                    formulario en formato excel, contaras con
+                    Aceptado y Negado esto te ayudara a dar criterio sobre la aprobacion del LOTE y adicional podras eliminar el lote que se libero
+                    en un caso especial que se requiera, solo bastara con usar el boton Eliminar LOTE Liberado e ingresar el texto ELIMINAR para cpnfirmar los cambios.
+                </span>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <br>
+        <h1 class="title" style="user-select: none;">INFORME PP</h1>
+        <div class="compartir">
+            <span style="left: 50%; transform: translateX(-25%); font-size: 30px;"><i class="fas fa-cog"></i></span>
+            <nav>
+                <a id="home-link" href="{{ url_for('home') }}"><i class="fas fa-home"
+                        title="Volver al Menú Principal"></i></a>
+                <a href="#" onclick="generateExcel()"><i class="far fa-file-excel" title="Descargar Excel"></i></a>
+                <a onclick="AceptadoPP()"><i class="fas fa-check" title="Aceptar"></i></a>
+                <a onclick="NoAceptadoPP()"><i class="fas fa-times" title="Negar"></i></a>
+                <a id="delete-user-link" onclick="confirmLoteDeletion()">
+                    <i class="fas fa-trash" title="Eliminar LOTE Liberado"></i>
+                </a>
+            </nav>
+        </div>
+
+        <form>
+            <div class="form-group centered">
+                <label for="lote" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="lote" name="lote" style="font-size: 15px;" readonly>
+            </div>
+            <div>
+                <label for="fecha_ingreso">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingreso" name="fecha_ingreso" readonly>
+
+            </div>
+            <div>
+                <label for="fecha">Fecha de Liberación:</label>
+                <input type="date" id="fecha" name="fecha" readonly>
+
+            </div>
+            <div>
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" readonly>
+            </div>
+            <div>
+                <label for="mp_validado_por">Validado Por:</label>
+                <input type="text" id="mp_validado_por" name="mp_validado_por" readonly>
+            </div>
+            <br>
+            <div>
+                <label for="remision_prov"><b><i>CRITERIO DE ACEPTACION Y RECHAZO</i></b></label>
+            </div>
+            <br>
+            <div>
+                <label for="mp_gorgojo">La madera presenta gorgojo?</label>
+                <input type="text" id="mp_gorgojo" name="mp_gorgojo" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_gorgojo_si">Sí</label>
+                <input type="checkbox" id="sino_gorgojo_si" name="sino_gorgojo" class="checkbox">
+                <label for="sino_gorgojo_no">No</label>
+                <input type="checkbox" id="sino_gorgojo_no" name="sino_gorgojo" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_partida">La madera esta partida o quebrada?</label>
+                <input type="text" id="mp_partida" name="mp_partida" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_partida_si">Sí</label>
+                <input type="checkbox" id="sino_partida_si" name="sino_partida" class="checkbox">
+                <label for="sino_partida_no">No</label>
+                <input type="checkbox" id="sino_partida_no" name="sino_partida" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_fisicos">La madera tiene agentes contaminantes físicos?</label>
+                <input type="text" id="mp_fisicos" name="mp_fisicos" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_fisicos_si">Sí</label>
+                <input type="checkbox" id="sino_fisicos_si" name="sino_fisicos" class="checkbox">
+                <label for="sino_fisicos_no">No</label>
+                <input type="checkbox" id="sino_fisicos_no" name="sino_fisicos" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_quimicos">La madera tiene agentes contaminantes químicos?</label>
+                <input type="text" id="mp_quimicos" name="mp_quimicos" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_quimicos_si">Sí</label>
+                <input type="checkbox" id="sino_quimicos_si" name="sino_quimicos" class="checkbox">
+                <label for="sino_quimicos_no">No</label>
+                <input type="checkbox" id="sino_quimicos_no" name="sino_quimicos" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_biologico">La madera tiene agentes contaminantes biológicos?</label>
+                <input type="text" id="mp_biologico" name="mp_biologico" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_biologico_si">Sí</label>
+                <input type="checkbox" id="sino_biologico_si" name="sino_biologico" class="checkbox">
+                <label for="sino_biologico_no">No</label>
+                <input type="checkbox" id="sino_biologico_no" name="sino_biologico" class="checkbox">
+            </div>
+            <br>
+            <div>
+                <label for="cantidadesxlargoPP">Cantidades Por el Largo</label>
+                <input type="text" id="cantidadesxlargoPP" name="cantidadesxlargoPP" readonly>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; height: 300px;">
+                <img id="imagen" src="" alt="Imagen" style="max-width: 100%; max-height: 100%;">
+                <p id="noImageText" style="display: none;">No se encontró ninguna imagen</p>
+            </div>
+            <br>
+        </form>
+
+        <form id="miFormulario">
+            <label id="textoIngresado" style="user-select: none;" class="namepres">PP</label>
+
+            <div id="tablaPP">
+                <div
+                    style="display: flex; align-items: center; justify-content: center; background-color: #DCDBDB; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                    <label for="diferenciam3PP" style="margin-right: 10px; color: black;">Dif. M3:</label>
+                    <input type="number" id="diferenciam3PP" name="diferenciam3PP" readonly
+                        style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                    <label for="diferenciapulgPP" style="margin-left: 50px; margin-right: 10px; color: black;">Dif.
+                        Pulgadas:</label>
+                    <input type="number" id="diferenciapulgPP" name="diferenciapulgPP" readonly
+                        style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                    <label for="diferenciacantidadPP" style="margin-left: 50px; margin-right: 10px; color: black;">Dif.
+                        Cantidad:</label>
+                    <input type="number" id="diferenciacantidadPP" name="diferenciacantidadPP" readonly
+                        style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div style="display:flex; justify-content:center; height: 100px; margin-top: 20px;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #DCDBDB; width: 70%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="margin-bottom: 10px;">
+                                <strong><label for="proveedor_title"
+                                        style="font-size: 17px; color: #333;">Proveedor</label></strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label for="m3PP" style="font-size: 14px; color: black;">M3 Total:</label>
+                                <input type="number" id="m3PP" name="m3PP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label for="pulgPP" style="font-size: 14px; color: black;">Pulgadas Total:</label>
+                                <input type="number" id="pulgPP" name="pulgPP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label for="cantidadtotalPP" style="font-size: 14px; color: black;">Cantidad
+                                    Total:</label>
+                                <input type="number" id="cantidadtotalPP" name="cantidadtotalPP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                        </div>
+                        <table id="PPtablePROV"
+                            style="margin-top: 20px; width: 25%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <tr>
+                                <td>ID</td>
+                                <td>Calibre</td>
+                                <td>Ancho</td>
+                                <td>Largo</td>
+                                <td>Unds</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div style="margin-left: 15px; margin-right: 15px;">
+                        <div
+                            style="border-left: 2px solid black; height: 300px; margin-left: 50px; margin-right: 50px;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <table id="dif_unds"
+                                style="border-collapse: collapse; border: 2px solid black; margin-top: 13px;">
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 10px;">Dif. Unds</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #DCDBDB; width: 70%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="margin-bottom: 10px;">
+                                <strong><label for="liberado_title"
+                                        style="font-size: 17px; color: #333;">Liberado</label></strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label for="m3_totalPP" style="font-size: 14px; color: black;">M3 Total:</label>
+                                <input type="number" id="m3_totalPP" name="m3_totalPP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label for="pulg_totalPP" style="font-size: 14px; color: black;">Pulgadas Total:</label>
+                                <input type="number" id="pulg_totalPP" name="pulg_totalPP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label for="unidades_totalPP" style="font-size: 14px; color: black;">Cantidad
+                                    Total:</label>
+                                <input type="number" id="unidades_totalPP" name="unidades_totalPP"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                        </div>
+                        <table id="PPtableVAL"
+                            style="margin-top: 20px; width: 25%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <tr>
+                                <td>ID</td>
+                                <td>Calibre</td>
+                                <td>Ancho</td>
+                                <td>Largo</td>
+                                <td>Unds</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        </form>
+
+    </main>
+    <script>
+
+        function sendStatusAndLoteToApp(status) {
+            var loteValue = document.getElementById("lote").value;
+
+            if (loteValue.trim() === "") {
+                console.error("Error: 'lote' value is empty.");
+                return;
+            }
+
+            // Define the endpoint URL for your Flask route
+            var url = "/update_statusPP";
+
+            // Create a new FormData object
+            var formData = new FormData();
+
+            // Append the status and lote values to the FormData object
+            formData.append('status', status);
+            formData.append('lote', loteValue);
+
+            // Send a POST request using fetch
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': getCsrfToken()
+                }
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        // Request was successful
+                        console.log("Status and lote sent to @app successfully.");
+                        showMessage("La solicitud se realizó correctamente.");
+                        redirectToInfoEntradaVal(); // Redirect after successful registration
+                    } else {
+                        // Request failed
+                        console.error("Error sending status and lote to @app.");
+                        showMessage("Hubo un error al procesar la solicitud. Por favor, intenta nuevamente.");
+                    }
+                })
+                .catch(function (error) {
+                    // Catch any other errors that occurred during the fetch
+                    console.error("Error sending status and lote to @app.");
+                    showMessage("Hubo un error al procesar la solicitud. Por favor, intenta nuevamente.");
+                });
+        }
+
+        function redirectToInfoEntradaVal() {
+            // Redirect to the 'info_entrada_val' view
+            window.location.href = "/info_entrada_val";
+        }
+
+        function AceptadoPP() {
+            // Validate the 'fecha' input before proceeding
+            var fechaValue = document.getElementById("fecha").value;
+
+            if (fechaValue.trim() === "") {
+                // Show a popup window indicating that the 'fecha' input is empty
+                alert("Este LOTE no ha sido LIBERADO, no es posible Verificarlo...");
+            } else {
+                // Show a confirmation dialog
+                if (window.confirm("¿Estás seguro de Aceptar este LOTE?")) {
+                    // If the user clicks "OK," proceed with the action
+                    sendStatusAndLoteToApp(1);
+                    console.log("Aceptado clicked. Status sent: 1, lote: " + document.getElementById("lote").value);
+                }
+            }
+        }
+
+        function NoAceptadoPP() {
+            // Validate the 'fecha' input before proceeding
+            var fechaValue = document.getElementById("fecha").value;
+
+            if (fechaValue.trim() === "") {
+                // Show a popup window indicating that the 'fecha' input is empty
+                alert("Este LOTE no ha sido LIBERADO, no es posible Verificarlo...");
+            } else {
+                // Show a confirmation dialog
+                if (window.confirm("¿Estás seguro de Negar este LOTE?")) {
+                    // If the user clicks "OK," proceed with the action
+                    sendStatusAndLoteToApp(2);
+                    console.log("No Aceptado clicked. Status sent: 2, lote: " + document.getElementById("lote").value);
+                }
+            }
+        }
+
+        // Function to get the CSRF token from the hidden input field
+        function getCsrfToken() {
+            return document.querySelector('input[name="csrf_token"]').value;
+        }
+
+        // Function to display messages to the user
+        function showMessage(message) {
+            alert(message);
+        }
+    </script>
+
+
+
+    <script src="../static/js/info_entrada_js/ver_prov_valPP.js"></script>
+
+    <script>
+
+function generateExcel() {
+    var fechaValue = document.getElementById("fecha").value;
+
+    var tablePROVRows = document.querySelectorAll('#PPtablePROV tr:not(:first-child)');
+    var calibrePPValues = [];
+    var anchoPPValues = [];
+    var largoPPValues = [];
+    var cantidadPPValues = [];
+
+    tablePROVRows.forEach(function (row) {
+        var cells = row.cells;
+        calibrePPValues.push(cells[1].textContent);
+        anchoPPValues.push(cells[2].textContent);
+        largoPPValues.push(cells[3].textContent);
+        cantidadPPValues.push(cells[4].textContent);
+    });
+
+    var tableDiffRows = document.querySelectorAll('#dif_unds tr:not(:first-child)');
+    var diff_undsValues = [];
+
+    tableDiffRows.forEach(function (row) {
+        var cells = row.cells;
+        diff_undsValues.push(cells[0].textContent);
+    });
+
+    if (fechaValue === "") {
+        alert("Este LOTE no ha sido LIBERADO, no es posible descargar el formulario.");
+    } else if (diff_undsValues.length === 0 || diff_undsValues.every(value => parseFloat(value) === 0)) {
+        alert("Debes ajustar las diferencias de unidades de PP antes de descargar el Excel.");
+    } else {
+                var form = document.createElement('form');
+                form.style.display = 'none'; // Hide the form
+
+                form.method = 'POST';
+                form.action = "{{ url_for('generate_excelPPVal') }}";
+
+                // Create a hidden input field for the CSRF token
+                var csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = 'csrf_token';
+                csrfTokenInput.value = "{{ csrf_token() }}";
+
+                // Create an input field for the 'lote' value
+                var loteInput = document.createElement('input');
+                loteInput.type = 'hidden';
+                loteInput.name = 'lote';
+                loteInput.value = document.getElementById('lote').value;
+
+                var fecha_ingresoInput = document.createElement('input');
+                fecha_ingresoInput.type = 'hidden';
+                fecha_ingresoInput.name = 'fecha_ingreso';
+                fecha_ingresoInput.value = document.getElementById('fecha_ingreso').value;
+
+                var fechaInput = document.createElement('input');
+                fechaInput.type = 'hidden';
+                fechaInput.name = 'fecha';
+                fechaInput.value = document.getElementById('fecha').value;
+
+                var proveedorInput = document.createElement('input');
+                proveedorInput.type = 'hidden';
+                proveedorInput.name = 'proveedor';
+                proveedorInput.value = document.getElementById('proveedor').value;
+
+                var mp_gorgojoInput = document.createElement('input');
+                mp_gorgojoInput.type = 'hidden';
+                mp_gorgojoInput.name = 'mp_gorgojo';
+                mp_gorgojoInput.value = document.getElementById('mp_gorgojo').value;
+
+                var mp_partidaInput = document.createElement('input');
+                mp_partidaInput.type = 'hidden';
+                mp_partidaInput.name = 'mp_partida';
+                mp_partidaInput.value = document.getElementById('mp_partida').value;
+
+                var mp_fisicosInput = document.createElement('input');
+                mp_fisicosInput.type = 'hidden';
+                mp_fisicosInput.name = 'mp_fisicos';
+                mp_fisicosInput.value = document.getElementById('mp_fisicos').value;
+
+                var mp_quimicosInput = document.createElement('input');
+                mp_quimicosInput.type = 'hidden';
+                mp_quimicosInput.name = 'mp_quimicos';
+                mp_quimicosInput.value = document.getElementById('mp_quimicos').value;
+
+                var mp_biologicoInput = document.createElement('input');
+                mp_biologicoInput.type = 'hidden';
+                mp_biologicoInput.name = 'mp_biologico';
+                mp_biologicoInput.value = document.getElementById('mp_biologico').value;
+
+                var cantidadesxlargoPPInput = document.createElement('input');
+                cantidadesxlargoPPInput.type = 'hidden';
+                cantidadesxlargoPPInput.name = 'cantidadesxlargoPP';
+                cantidadesxlargoPPInput.value = document.getElementById('cantidadesxlargoPP').value;
+
+                var mp_validado_porInput = document.createElement('input');
+                mp_validado_porInput.type = 'hidden';
+                mp_validado_porInput.name = 'mp_validado_por';
+                mp_validado_porInput.value = document.getElementById('mp_validado_por').value;
+
+                // Create an input field for the 'm3PP' value
+                var diferenciam3PPInput = document.createElement('input');
+                diferenciam3PPInput.type = 'hidden';
+                diferenciam3PPInput.name = 'diferenciam3PP';
+                diferenciam3PPInput.value = document.getElementById('diferenciam3PP').value;
+
+                var diferenciapulgPPInput = document.createElement('input');
+                diferenciapulgPPInput.type = 'hidden';
+                diferenciapulgPPInput.name = 'diferenciapulgPP';
+                diferenciapulgPPInput.value = document.getElementById('diferenciapulgPP').value;
+
+                var diferenciacantidadPPInput = document.createElement('input');
+                diferenciacantidadPPInput.type = 'hidden';
+                diferenciacantidadPPInput.name = 'diferenciacantidadPP';
+                diferenciacantidadPPInput.value = document.getElementById('diferenciacantidadPP').value;
+
+                var m3PPInput = document.createElement('input');
+                m3PPInput.type = 'hidden';
+                m3PPInput.name = 'm3PP';
+                m3PPInput.value = document.getElementById('m3PP').value;
+
+                var pulgPPInput = document.createElement('input');
+                pulgPPInput.type = 'hidden';
+                pulgPPInput.name = 'pulgPP';
+                pulgPPInput.value = document.getElementById('pulgPP').value;
+
+                var cantidadtotalPPInput = document.createElement('input');
+                cantidadtotalPPInput.type = 'hidden';
+                cantidadtotalPPInput.name = 'cantidadtotalPP';
+                cantidadtotalPPInput.value = document.getElementById('cantidadtotalPP').value;
+
+                var m3_totalPPInput = document.createElement('input');
+                m3_totalPPInput.type = 'hidden';
+                m3_totalPPInput.name = 'm3_totalPP';
+                m3_totalPPInput.value = document.getElementById('m3_totalPP').value;
+
+                var pulg_totalPPInput = document.createElement('input');
+                pulg_totalPPInput.type = 'hidden';
+                pulg_totalPPInput.name = 'pulg_totalPP';
+                pulg_totalPPInput.value = document.getElementById('pulg_totalPP').value;
+
+                var unidades_totalPPInput = document.createElement('input');
+                unidades_totalPPInput.type = 'hidden';
+                unidades_totalPPInput.name = 'unidades_totalPP';
+                unidades_totalPPInput.value = document.getElementById('unidades_totalPP').value;
+
+
+                var calibrePPInput = document.createElement('input');
+                calibrePPInput.type = 'hidden';
+                calibrePPInput.name = 'calibrePP';
+                calibrePPInput.value = calibrePPValues.join(',');
+
+                // Create an input field for largoTROZA values
+                var anchoPPInput = document.createElement('input');
+                anchoPPInput.type = 'hidden';
+                anchoPPInput.name = 'anchoPP';
+                anchoPPInput.value = anchoPPValues.join(',');
+
+                var largoPPInput = document.createElement('input');
+                largoPPInput.type = 'hidden';
+                largoPPInput.name = 'largoPP';
+                largoPPInput.value = largoPPValues.join(',');
+
+                // Create an input field for largoTROZA values
+                var cantidadPPInput = document.createElement('input');
+                cantidadPPInput.type = 'hidden';
+                cantidadPPInput.name = 'cantidadPP';
+                cantidadPPInput.value = cantidadPPValues.join(',');
+
+                var diff_undsInput = document.createElement('input');
+        diff_undsInput.type = 'hidden';
+        diff_undsInput.name = 'diff_unds';
+        diff_undsInput.value = diff_undsValues.join(',');
+
+
+
+                // Append the input fields to the form
+                form.appendChild(csrfTokenInput);
+                form.appendChild(loteInput);
+                form.appendChild(fecha_ingresoInput);
+                form.appendChild(fechaInput);
+                form.appendChild(proveedorInput);
+                form.appendChild(mp_gorgojoInput);
+                form.appendChild(mp_partidaInput);
+                form.appendChild(mp_fisicosInput);
+                form.appendChild(mp_quimicosInput);
+                form.appendChild(mp_biologicoInput);
+                form.appendChild(cantidadesxlargoPPInput);
+                form.appendChild(mp_validado_porInput);
+
+                form.appendChild(diferenciam3PPInput);
+                form.appendChild(diferenciapulgPPInput);
+                form.appendChild(diferenciacantidadPPInput);
+
+                form.appendChild(m3PPInput);
+                form.appendChild(pulgPPInput);
+                form.appendChild(cantidadtotalPPInput);
+                form.appendChild(m3_totalPPInput);
+                form.appendChild(pulg_totalPPInput);
+                form.appendChild(unidades_totalPPInput);
+
+                form.appendChild(calibrePPInput);
+                form.appendChild(anchoPPInput);
+                form.appendChild(largoPPInput);
+                form.appendChild(cantidadPPInput);
+                form.appendChild(diff_undsInput);
+
+                // Append the form to the document body
+                document.body.appendChild(form);
+
+                // Submit the form
+                form.submit();
+            }
+        }  
+    </script>
+
+    <a class="botonSubir" onclick="scrollToTop(event)">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+</body>
+
+</html>

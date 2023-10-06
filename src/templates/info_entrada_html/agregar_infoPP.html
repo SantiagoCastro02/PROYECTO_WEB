@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Informe PP</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/agregar_info.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>AGREGAR INFORME PP</p>
+        </div>
+
+    </header>
+
+    <main>
+        <h1 class="title" style="user-select: none;">INFORME PP</h1>
+
+
+        <form id="myForm" method="POST" action="/agregar_infoPP">
+
+            <div class="form-group centered">
+                <label for="lotePP" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="lotePP" name="lotePP" required style="font-size: 15px;" value="{{ lote }}">
+            </div>
+            <div>
+                <label for="fecha_ingresoPP">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingresoPP" name="fecha_ingresoPP" required>
+
+            </div>
+            <div>
+                <label for="proveedorPP">Proveedor:</label>
+                <input type="text" id="proveedorPP" name="proveedorPP" required>
+            </div>
+            <div>
+                <label for="receptorPP">Receptor:</label>
+                <input type="text" id="receptorPP" name="receptorPP" required>
+            </div>
+            <div>
+                <label for="remision_provPP">N° Remision Prov:</label>
+                <input type="text" id="remision_provPP" name="remision_provPP" required>
+            </div>
+            <div>
+                <label for="transportadorPP">Transportador:</label>
+                <input type="text" id="transportadorPP" name="transportadorPP">
+            </div>
+            <div>
+                <label for="placaPP">Placa Vehiculo:</label>
+                <input type="text" id="placaPP" name="placaPP">
+            </div>
+            <br>
+            <div>
+                <label for="presentacionPP">Presentacion:</label>
+                <input type="text" id="presentacionPP" name="presentacionPP" value="PP" readonly required>
+            </div>
+
+            <div class="help-icon">
+                <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+                <div class="tooltip">
+                    <span>Para ingresar las referencia y sus cantidades de la remision, ingresa en los campos el
+                        Calibre, Ancho, Largo y Cantidades.
+                        Para eliminar un registro bastara con posicionarte en la fila deseada, en la columna ELIMINAR haz clic sobre el icono y se eliminara instantaneamente.
+                    </span>
+                </div>
+            </div>
+            <br>
+
+
+            <div id="pp-table" style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <label for="m3PP" style="margin-right: 10px;">M3 Total:</label>
+                    <input type="text" id="m3PP" name="m3PP" readonly style="width: 80px;">
+                    <label for="pulgPP" style="margin-left: 50px; margin-right: 10px;">Pulgadas Total:</label>
+                    <input type="text" id="pulgPP" name="pulgPP" readonly style="width: 80px;">
+                    <label for="cantidadtotalPP" style="margin-left: 50px; margin-right: 10px;">Cantidad Total:</label>
+                    <input type="text" id="cantidadtotalPP" name="cantidadtotalPP" readonly style="width: 80px;">
+                </div>
+
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <div style="text-align: center; margin-right: 10px;">
+                        <label for="calibrePP">Calibre:</label>
+                        <input type="number" name="calibrePP" id="calibrePP" step="1">
+                    </div>
+                    <div style="text-align: center; margin-right: 10px;">
+                        <label for="anchoPP">Ancho:</label>
+                        <input type="number" name="anchoPP" id="anchoPP" step="1">
+                    </div>
+                    <div style="text-align: center; margin-right: 10px;">
+                        <label for="largoPP">Largo:</label>
+                        <input type="number" name="largoPP" id="largoPP" step="1">
+                    </div>
+                    <div style="text-align: center;">
+                        <label for="cantidadPP">Cantidad:</label>
+                        <input type="number" name="cantidadPP" id="cantidadPP" step="1">
+                    </div>
+                </div>
+                <div>
+                    <button class="button" type="button" onclick="agregarFilaPP()">Añadir</button>
+                </div>
+                <br>
+                <table id="tablaPP" style="margin: auto;" class="tabla-con-marco">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Calibre</th>
+                            <th>Ancho</th>
+                            <th>Largo</th>
+                            <th id="cantidadHeader">Cantidad</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaPP">
+                    </tbody>
+                </table>
+            </div>
+
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button id="submitBtn" type="submit" class="btn-agregar" onclick="submitForm()">ENVIAR</button>
+
+        </form>
+
+    </main>
+
+
+
+    <script>
+
+    </script>
+
+    <script src="../static/js/info_entrada_js/agregar_infoPP.js"></script>
+</body>
+
+</html>

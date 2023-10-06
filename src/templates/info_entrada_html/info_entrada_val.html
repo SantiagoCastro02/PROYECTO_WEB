@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe Validado</title>
+
+  <link rel="stylesheet" href="../static/css/info_entrada_css/info_entrada_val.css">
+  <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+  <header>
+    <div class="icon__menu">
+      <i class="fas fa-bars" id="btn_open"></i>
+    </div>
+    <div class="top__text" style="user-select: none;">
+      <p>INFORME LIBERADO</p>
+    </div>
+    <div class="help-icon" style="user-select: none;">
+      <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+      <div class="tooltip">
+        <div>
+          <b><span style="color: brown;">INFORME LIBERADO</span></b><br>
+          En este sitio podrás Ver la información del Proveedor y la Liberación de la Materia Prima con sus datos de
+          diferencia y herramientas múltiples.
+        </div>
+        <div>
+          <b><span style="color: #f1c40f;">VER INFORME</span></b><br>
+          Para Ver el Informe, dirigirte a la columna Acciones y ubica el informe que deseas ver haciendo clic sobre el
+          "Ver", una vez dentro podrás ver toda la información.
+        </div>
+        <div>
+          <b><span style="color: blue;">FILTRADO</span></b><br>
+          Podrás filtrar mediante PRESENTACION usando los botones que se encuentra en la parte superior derecha.
+          Otro filtro, es seleccionando una de las opciones del desplegable y digitando en el campo de texto dicha
+          información que requieras.
+        </div>
+      </div>
+    </div>
+    <div class="btn-presentacion" style="user-select: none;">
+      <button id="pp-button" style="margin-left: 600px;"><b>PP</b></button>
+      <button id="bloque-button"><b>BLOQUE</b></button>
+      <button id="troza-button"><b>TROZA</b></button>
+    </div>
+
+  </header>
+
+
+  <div class="menu__side" id="menu_side" style="user-select: none;">
+
+    <div class="name__page">
+      <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+      <h4><em>M.I software</em></h4>
+    </div>
+
+
+    <div class="options__menu">
+
+      <a href="{{ url_for('home') }}">
+        <div class="option">
+          <i class="fas fa-home" title="Inicio"></i>
+          <h4>Inicio</h4>
+        </div>
+      </a>
+
+      <a href="{{ url_for('info_prov_val') }}">
+        <div class="option">
+          <i class="fas fa-tree"></i>
+          <h4>Informe MP</h4>
+        </div>
+      </a>
+
+      <a class="#">
+        <div class="option">
+          <i class="fa-sharp fa-solid fa-industry"></i>
+          <h4>Planta e Inventario</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-users-rectangle"></i>
+          <h4>Clientes, Ficha TEC. y Orden</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-truck-moving"></i>
+          <h4>Despachos</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <h4>Bodega</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-light fa-newspaper"></i>
+          <h4>Resumen</h4>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="ultimo_lote" style="user-select: none;">
+    <label for="ultimo_lote">Último lote registrado:</label>
+    <div class="input-container">
+      <input type="text" id="ultimo_lote" name="ultimo_lote" readonly
+        value="{{ last_infoLOTE if last_infoLOTE else '' }}">
+      <i class="fas fa-copy copy-icon" onclick="copyText()" title="Copiar"></i>
+    </div>
+  </div>
+
+
+
+  <main>
+    <div class="search-container" style="user-select: none;">
+      <label for="filter-select">Filtrar por:</label>
+      <select id="filter-select" name="filter-select" style="margin-right: 10px;">
+        <option value="lote">LOTE</option>
+        <option value="fecha_ingreso">Fecha de Ingreso</option>
+        <option value="proveedor">Proveedor</option>
+        <option value="verificado">Verificado</option>
+      </select>
+
+      <div class="search-bar">
+        <form id="search-form">
+          <input type="text" id="search-input" name="search-input" placeholder="Ingresa">
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+
+    <table>
+      <div id="no-results-message" style="user-select: none;" class="no-results-message">No se encontró ningún
+        resultado... :(</div>
+      <br>
+      <thead>
+        <tr>
+          <th style="user-select: none;">LOTE N°</th>
+          <th style="user-select: none;">Fecha Ingreso</th>
+          <th style="user-select: none;">Proveedor</th>
+          <th style="user-select: none;">Presentacion</th>
+          <th style="user-select: none;">Pulgadas</th>
+          <th style="user-select: none;">M3</th>
+          <th style="user-select: none;">Verificado</th>
+          <th style="user-select: none;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        {% set reversed_users = users[::-1] %}
+        {% for user in reversed_users %}
+        <tr data-id="{{ user.lote }}" data-id="{{ user.id_lote }}">
+          <td>{{ user.lote }}</td>
+          <td>{{ user.fecha_ingreso }}</td>
+          <td>{{ user.proveedor }}</td>
+          <td>{{ user.presentacion }}</td>
+          <td>
+            {% if user.presentacion == 'PP' %}
+            {% if user.pulg_totalPP %}
+            {{ user.pulg_totalPP }}
+            {% else %}
+            <span style="color: red;">No Liberado</span>
+            {% endif %}
+            {% elif user.presentacion == 'BLOQUE' %}
+            {% if user.pulg_totalBLOQUE %}
+            {{ user.pulg_totalBLOQUE }}
+            {% else %}
+            <span style="color: red;">No Liberado</span>
+            {% endif %}
+            {% else %}
+            {% if user.presentacion == 'TROZA' %}
+            <span style="color: green;">N/A</span>
+            {% endif %}
+            {% endif %}
+          </td>
+          <td>
+            {% if user.presentacion == 'PP' %}
+            {% if user.m3_totalPP %}
+            {{ user.m3_totalPP }}
+            {% else %}
+            <span style="color: red;">No Liberado</span>
+            {% endif %}
+            {% elif user.presentacion == 'BLOQUE' %}
+            {% if user.m3_totalBLOQUE %}
+            {{ user.m3_totalBLOQUE }}
+            {% else %}
+            <span style="color: red;">No Liberado</span>
+            {% endif %}
+            {% else %}
+            {% if user.presentacion == 'TROZA' %}
+            {% if user.vol_m3_totalTROZA %}
+            {{ user.vol_m3_totalTROZA }}
+            {% else %}
+            <span style="color: red;">No Liberado</span>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+          </td>
+          <td>
+            {% if user.verificado == '' %}
+            <span style="color: red;">Sin Validar</span>
+            {% elif user.verificado == 'No Liberado' %}
+            <span style="color: red;">{{ user.verificado }}</span>
+            {% elif user.verificado == 0 %}
+            <span style="color: gray;">Pendiente</span>
+            {% elif user.verificado == 1 %}
+            <span style="color: green;">Aceptado</span>
+            {% elif user.verificado == 2 %}
+            <span style="color: red;">Negado</span>
+            {% else %}
+            <span>{{ user.verificado }}</span>
+            {% endif %}
+          </td>
+
+          <td>
+            {% if user.presentacion == 'PP' %}
+              {% if user.m3_totalPP %}
+              <a href="/ver_prov_valPP?lote={{ user.lote }}&fecha_ingreso={{ user.fecha_ingreso }}&fecha={{ user.fecha }}&proveedor={{ user.proveedor }}&mp_validado_por={{ user.mp_validado_por }}&mp_gorgojo={{ user.mp_gorgojo }}&sino_gorgojo={{ user.sino_gorgojo }}&mp_partida={{ user.mp_partida }}&sino_partida={{ user.sino_partida }}&mp_fisicos={{ user.mp_fisicos }}&sino_fisicos={{ user.sino_fisicos }}&mp_quimicos={{ user.mp_quimicos }}&sino_quimicos={{ user.sino_quimicos }}&mp_biologico={{ user.mp_biologico }}&sino_biologico={{ user.sino_biologico }}&unidades_totalPP={{ user.unidades_totalPP }}&m3_totalPP={{ user.m3_totalPP }}&pulg_totalPP={{ user.pulg_totalPP }}&cantidadtotalPP={{ user.cantidadtotalPP }}&pulgPP={{ user.pulgPP }}&m3PP={{ user.m3PP }}&mp_validado_porPP={{ user.mp_validado_porPP }}&verificado={{ user.verificado }}&cantidadesxlargoPP={{ user.cantidadesxlargoPP }}&infotablepp={{ user.infotablepp }}&url_img={{ user.url_img }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)"><i
+                class="fas fa-eye"></i></a>
+              {% else %}
+                <span style="color: red;">No Liberado</span>
+              {% endif %}
+            {% elif user.presentacion == 'BLOQUE' %}
+              {% if user.m3_totalBLOQUE %}
+              <a href="/ver_prov_valBLOQUE?lote={{ user.lote }}&fecha_ingreso={{ user.fecha_ingreso }}&fecha={{ user.fecha }}&proveedor={{ user.proveedor }}&mp_validado_por={{ user.mp_validado_por }}&mp_gorgojo={{ user.mp_gorgojo }}&sino_gorgojo={{ user.sino_gorgojo }}&mp_partida={{ user.mp_partida }}&sino_partida={{ user.sino_partida }}&mp_fisicos={{ user.mp_fisicos }}&sino_fisicos={{ user.sino_fisicos }}&mp_quimicos={{ user.mp_quimicos }}&sino_quimicos={{ user.sino_quimicos }}&mp_biologico={{ user.mp_biologico }}&sino_biologico={{ user.sino_biologico }}&unidades_totalBLOQUE={{ user.unidades_totalBLOQUE }}&m3_totalBLOQUE={{ user.m3_totalBLOQUE }}&pulg_totalBLOQUE={{ user.pulg_totalBLOQUE }}&pulgadasBLOQUE={{ user.pulgadasBLOQUE }}&lado1BLOQUE={{ user.lado1BLOQUE }}&lado2BLOQUE={{ user.lado2BLOQUE }}&lengthBLOQUE={{ user.lengthBLOQUE }}&verificado={{ user.verificado }}&infotablebloque={{ user.infotablebloque }}&cantidadesxlargoBLOQUE={{ user.cantidadesxlargoBLOQUE }}&url_img={{ user.url_img }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)"><i
+                class="fas fa-eye"></i></a>
+              {% else %}
+                <span style="color: red;">No Liberado</span>
+              {% endif %}
+            {% elif user.presentacion == 'TROZA' %}
+              {% if user.vol_m3_totalTROZA %}
+              <a href="/ver_prov_valTROZA?lote={{ user.lote }}&fecha_ingreso={{ user.fecha_ingreso }}&fecha={{ user.fecha }}&proveedor={{ user.proveedor }}&mp_validado_por={{ user.mp_validado_por }}&mp_gorgojo={{ user.mp_gorgojo }}&sino_gorgojo={{ user.sino_gorgojo }}&mp_partida={{ user.mp_partida }}&sino_partida={{ user.sino_partida }}&mp_fisicos={{ user.mp_fisicos }}&sino_fisicos={{ user.sino_fisicos }}&mp_quimicos={{ user.mp_quimicos }}&sino_quimicos={{ user.sino_quimicos }}&mp_biologico={{ user.mp_biologico }}&sino_biologico={{ user.sino_biologico }}&vol_m3_totalTROZA={{ user.vol_m3_totalTROZA }}&unidades_totalTROZA={{ user.unidades_totalTROZA }}&volm3TROZA={{ user.volm3TROZA }}&M3Prov={{ user.M3Prov }}&CantidadProvTROZA={{ user.CantidadProvTROZA }}&puntaTROZA={{ user.puntaTROZA }}&lado1TROZA={{ user.lado1TROZA }}&lado2TROZA={{ user.lado2TROZA }}&lengthTROZA={{ user.lengthTROZA }}&verificado={{ user.verificado }}&infotabletroza={{ user.infotabletroza }}&cantidadesxlargoTROZA={{ user.cantidadesxlargoTROZA }}&url_img={{ user.url_img }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)"><i
+                class="fas fa-eye"></i></a>
+              {% else %}
+                <span style="color: red;">No Liberado</span>
+              {% endif %}
+            {% endif %}
+          </td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </main>
+
+
+
+
+  <script src="../static/js/info_entrada_js/info_entrada_val.js"></script>
+</body>
+
+</html>

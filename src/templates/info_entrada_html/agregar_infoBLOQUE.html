@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Informe BLOQUE</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/agregar_info.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <script>
+        function restrictInput(event) {
+            const input = event.target;
+            const sanitizedValue = input.value.replace(/[^A-Z0-9]/g, '').slice(0, 4);
+            input.value = sanitizedValue;
+        }
+    </script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>AGREGAR INFORME BLOQUE</p>
+        </div>
+
+    </header>
+
+    <main>
+        <h1 class="title" style="user-select: none;">INFORME BLOQUE</h1>
+
+
+        <form id="myForm" method="POST" action="/agregar_infoBLOQUE">
+
+            <div class="form-group centered">
+                <label for="loteBLOQUE" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="loteBLOQUE" name="loteBLOQUE" required style="font-size: 15px;"
+                    value="{{ lote }}" oninput="restrictInput(event)">
+            </div>
+            <div>
+                <label for="fecha_ingresoBLOQUE">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingresoBLOQUE" name="fecha_ingresoBLOQUE" required>
+
+            </div>
+            <div>
+                <label for="proveedorBLOQUE">Proveedor:</label>
+                <input type="text" id="proveedorBLOQUE" name="proveedorBLOQUE" required>
+            </div>
+            <div>
+                <label for="receptorBLOQUE">Receptor:</label>
+                <input type="text" id="receptorBLOQUE" name="receptorBLOQUE" required>
+            </div>
+            <div>
+                <label for="remision_provBLOQUE">N° Remision Prov:</label>
+                <input type="text" id="remision_provBLOQUE" name="remision_provBLOQUE" required>
+            </div>
+            <div>
+                <label for="talo_salvoconductoBLOQUE">N° Talonario Salvoconducto:</label>
+                <input type="text" id="talo_salvoconductoBLOQUE" name="talo_salvoconductoBLOQUE" required>
+            </div>
+            <div>
+                <label for="remi_salvoconductoBLOQUE">N° Remision Salvoconducto:</label>
+                <input type="text" id="remi_salvoconductoBLOQUE" name="remi_salvoconductoBLOQUE" required>
+            </div>
+            <div>
+                <label for="nombre_razonBLOQUE">Nombre o Razon Social del Titular del Registro:</label>
+                <input type="text" id="nombre_razonBLOQUE" name="nombre_razonBLOQUE" required>
+            </div>
+            <div>
+                <label for="entidadBLOQUE">Entidad que Expide:</label>
+                <input type="text" id="entidadBLOQUE" name="entidadBLOQUE" required>
+            </div>
+            <div>
+                <label for="no_registroBLOQUE">Registro N°:</label>
+                <input type="text" id="no_registroBLOQUE" name="no_registroBLOQUE" required>
+            </div>
+            <br>
+            <div>
+                <strong><label for="procedencia">PROCEDENCIA:</label></strong>
+            </div>
+
+            <div>
+                <label for="departamentoBLOQUE">Departamento:</label>
+                <select id="departamentoBLOQUE" name="departamentoBLOQUE" onchange="cargarMunicipios()" required>
+                    <option value="" disabled selected>Seleccione un Departamento</option>
+
+                </select>
+            </div>
+            <div>
+                <label for="municipioBLOQUE">Municipio:</label>
+                <select id="municipioBLOQUE" name="municipioBLOQUE" required>
+
+                </select>
+            </div>
+
+            <div>
+                <label for="veredaBLOQUE">Vereda:</label>
+                <input type="text" id="veredaBLOQUE" name="veredaBLOQUE" required>
+            </div>
+            <div>
+                <label for="transportadorBLOQUE">Transportador:</label>
+                <input type="text" id="transportadorBLOQUE" name="transportadorBLOQUE">
+            </div>
+            <div>
+                <label for="placaBLOQUE">Placa Vehiculo:</label>
+                <input type="text" id="placaBLOQUE" name="placaBLOQUE">
+            </div>
+            <br>
+            <div>
+                <strong><label for="especie">ESPECIE:</label></strong>
+            </div>
+
+            <div>
+                <label for="comunBLOQUE">Nombre Común:</label>
+                <input type="text" id="comunBLOQUE" name="comunBLOQUE" required>
+            </div>
+            <div>
+                <label for="cientificoBLOQUE">Nombre Cientifico:</label>
+                <input type="text" id="cientificoBLOQUE" name="cientificoBLOQUE" required>
+            </div>
+            <br>
+            <div>
+                <label for="presentacionBLOQUE">Presentacion:</label>
+                <input type="text" id="presentacionBLOQUE" name="presentacionBLOQUE" value="BLOQUE" readonly required>
+            </div>
+
+            <div class="help-icon">
+                <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+                <div class="tooltip">
+                    <span>Para ingresar las referencia y sus cantidades de la remision, ingresa en el campo
+                        Largo el dato en centimetros, en el campo Cant. Pulg ingresa el dato en pulgadas (No uses puntos ni comas).
+                    </span>
+                </div>
+            </div>
+
+            <div id="bloque-table" style="text-align: center;">
+                <div style="display: flex; justify-content: center;">
+                    <label for="pulgadasBLOQUE" style="margin-right: 10px;">Pulgadas Total:</label>
+                    <input type="text" id="pulgadasBLOQUE" name="pulgadasBLOQUE" readonly style="width: 80px;">
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <div style="text-align: center; margin-right: 10px;">
+                        <label for="largo">Largo:</label>
+                        <input type="number" name="largo" id="largo" step="1">
+                    </div>
+                    <div style="text-align: center;">
+                        <label for="cantPulg">Cant. Pulg:</label>
+                        <input type="number" name="cantPulg" id="cantPulg" step="1">
+                    </div>
+                </div>
+
+                <div>
+                    <button class="button" type="button" onclick="agregarFilaBLOQUE()">Añadir</button>
+                </div>
+                <br>
+                <table id="tablaBloque" style="margin: auto;" class="tabla-con-marco">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Largo</th>
+                            <th>Cant. Pulg.</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaBloque">
+                        <!-- Existing table rows go here -->
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button id="submitBtn" type="submit" class="btn-agregar" onclick="submitForm()">ENVIAR</button>
+
+        </form>
+
+    </main>
+
+    <script src="../static/js/info_entrada_js/agregar_infoBLOQUE.js"></script>
+
+
+</body>
+
+</html>

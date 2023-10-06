@@ -1,0 +1,66 @@
+{% extends './base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %}
+{% block body %}
+
+<form class="form-signin" action="/login" method="POST" style="user-select: none;">
+    <img class="mb-4" src="{{ url_for('static', filename='img/splash.png') }}" alt="" width="150" height="150">
+    {% with messages = get_flashed_messages() %}{% if messages %}
+    <br />
+    {% for message in messages %}
+    <div class="alert alert-primary alert-dismissible" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    {% endwith %}
+    <h1 class="h3 mb-3 fw-normal"><strong>Inicio de Sesion</strong></h1>
+    
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-floating">
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        <label for="username">Usuario</label>
+    </div>
+    <div class="form-floating mt-2">
+        <input type="password" class="form-control" name="password" placeholder="Password">
+        <i id="eye-icon" class="fas fa-eye" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);"></i>
+        <label for="password">Contraseña</label>
+    </div>
+      <br>
+    <button class="w-90 btn btn-lg btn-primary custom-button" type="submit">Ingresar</button>
+    <br>
+    <br>
+    <br>
+    <div class="Info">
+        <label for="mi-soft">¿Eres nuevo en M.I software o tienes problemas para Ingresar?</label>
+        <br>
+        <br>
+        <label for="mi-soft">COMUNICATE CON EL ADMIN, PARA MÁS INFO.</label>
+      </div>
+      
+    </form>
+    <script>
+        const eyeIcon = document.getElementById("eye-icon");
+        const passwordInput = document.querySelector('input[name="password"]');
+    
+        eyeIcon.addEventListener("click", function() {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        });
+    </script>
+    {% endblock %}

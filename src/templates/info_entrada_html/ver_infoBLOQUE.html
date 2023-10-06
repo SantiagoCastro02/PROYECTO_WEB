@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Informe Proveedor</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/ver_info.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>INFORME PROVEEDOR BLOQUE</p>
+        </div>
+
+
+
+    </header>
+
+
+
+
+    <main>
+        <br>
+        <h1 class="title" style="user-select: none;">INFORME BLOQUE</h1>
+
+        <form>
+            <div class="form-group centered">
+                <label for="lote" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="lote" name="lote" style="font-size: 15px;" readonly>
+            </div>
+
+
+            <div>
+                <label for="fecha_ingreso">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingreso" name="fecha_ingreso" readonly>
+
+            </div>
+            <div>
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" readonly>
+            </div>
+            <div>
+                <label for="receptor">Receptor:</label>
+                <input type="text" id="receptor" name="receptor" readonly>
+            </div>
+            <div>
+                <label for="remision_prov">N° Remision Prov:</label>
+                <input type="text" id="remision_prov" name="remision_prov" readonly>
+            </div>
+            <div>
+                <label for="talo_salvoconducto">N° Talonario Salvoconducto:</label>
+                <input type="text" id="talo_salvoconducto" name="talo_salvoconducto" readonly>
+            </div>
+            <div>
+                <label for="remi_salvoconducto">N° Remision Salvoconducto:</label>
+                <input type="text" id="remi_salvoconducto" name="remi_salvoconducto" readonly>
+            </div>
+            <div>
+                <label for="nombre_razon">Nombre o Razon Social del Titular del Registro:</label>
+                <input type="text" id="nombre_razon" name="nombre_razon" readonly>
+            </div>
+            <div>
+                <label for="entidad">Entidad que Expide:</label>
+                <input type="text" id="entidad" name="entidad" readonly>
+            </div>
+            <div>
+                <label for="no_registro">Registro N°:</label>
+                <input type="text" id="no_registro" name="no_registro" readonly>
+            </div>
+            <br>
+            <div>
+                <strong><label for="procedencia">PROCEDENCIA:</label></strong>
+            </div>
+
+            <div>
+                <label for="departamento">Departamento:</label>
+                <input type="text" id="departamento" name="departamento" readonly>
+            </div>
+            <div>
+                <label for="municipio">Municipio:</label>
+                <input type="text" id="municipio" name="municipio" readonly>
+            </div>
+            <div>
+                <label for="vereda">Vereda:</label>
+                <input type="text" id="vereda" name="vereda" readonly>
+            </div>
+            <div>
+                <label for="transportador">Transportador:</label>
+                <input type="text" id="transportador" name="transportador" readonly>
+            </div>
+            <div>
+                <label for="placa">Placa Vehiculo:</label>
+                <input type="text" id="placa" name="placa" readonly>
+            </div>
+            <br>
+            <div>
+                <strong><label for="especie">ESPECIE:</label></strong>
+            </div>
+
+            <div>
+                <label for="comun">Nombre Común:</label>
+                <input type="text" id="comun" name="comun" readonly>
+            </div>
+            <div>
+                <label for="cientifico">Cientifico:</label>
+                <input type="text" id="cientifico" name="cientifico" readonly>
+            </div>
+            <div>
+                <br>
+                <strong><label for="presentacion">PRESENTACION:</label></strong>
+            </div>
+            <div>
+                <input type="text" id="presentacion" name="presentacion" readonly>
+            </div>
+
+
+            <div id="tablaBloque">
+                <div
+                    style="display: flex; align-items: center; justify-content: center; background-color: #DCDBDB; padding: 20px; border-radius: 5px;">
+                    <label for="pulgadasBLOQUE" style="margin-right: 10px; font-size: 14px;">Pulgadas Total:</label>
+                    <input type="text" id="pulgadasBLOQUE" name="pulgadasBLOQUE"
+                        style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px; margin-right: 40px;"
+                        readonly>
+
+                </div>
+                <table id="BLOQUEtablePROV">
+                    <tr>
+                        <td>ID</td>
+                        <td>Cantidad Pulgadas</td>
+                        <td>Largo</td>
+                    </tr>
+                </table>
+            </div>
+
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        </form>
+
+    </main>
+
+
+
+
+
+    <script src="../static/js/info_entrada_js/ver_infoBLOQUE.js"></script>
+
+
+
+</body>
+
+</html>

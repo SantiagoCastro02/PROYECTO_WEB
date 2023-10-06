@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Informe Liberado</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/ver_prov_val.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>INFORME LIBERADO TROZA</p>
+        </div>
+        <div class="help-icon" style="user-select: none;">
+            <i class="fas fa-question-circle" style="color: white; font-size: 20px;"></i>
+            <div class="tooltip">
+                <span>Aqui podras ver las diferencias de la MP de la Remision con la que se libero en
+                    planta. Adicional contaras
+                    con herramientas multiples como por ejemplo. Descargar Excel que te permitira descargar el
+                    formulario en formato excel, contaras con
+                    Aceptado y Negado esto te ayudara a dar criterio sobre la aprobacion del LOTE y adicional podras eliminar el lote que se libero
+                    en un caso especial que se requiera, solo bastara con usar el boton Eliminar LOTE Liberado e ingresar el texto ELIMINAR para cpnfirmar los cambios.
+                </span>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <br>
+        <h1 class="title" style="user-select: none;">INFORME TROZA</h1>
+        <div class="compartir">
+            <span style="left: 50%; transform: translateX(-25%); font-size: 30px;"><i class="fas fa-cog"></i></span>
+            <nav>
+                <a id="home-link" href="{{ url_for('home') }}"><i class="fas fa-home"
+                        title="Volver al Menú Principal"></i></a>
+                <a href="#" onclick="generateExcel()"><i class="far fa-file-excel" title="Descargar Excel"></i></a>
+                <a onclick="AceptadoPP()"><i class="fas fa-check" title="Aceptar"></i></a>
+                <a onclick="NoAceptadoPP()"><i class="fas fa-times" title="Negar"></i></a>
+                <a id="delete-user-link" onclick="confirmLoteDeletion()">
+                    <i class="fas fa-trash" title="Eliminar LOTE Liberado"></i>
+                </a>
+            </nav>
+        </div>
+
+
+        <form>
+            <div class="form-group centered">
+                <label for="lote" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="lote" name="lote" style="font-size: 15px;" readonly>
+            </div>
+            <div>
+                <label for="fecha_ingreso">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingreso" name="fecha_ingreso" readonly>
+
+            </div>
+            <div>
+                <label for="fecha">Fecha de Liberación:</label>
+                <input type="date" id="fecha" name="fecha" readonly>
+
+            </div>
+            <div>
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" readonly>
+            </div>
+            <div>
+                <label for="mp_validado_por">Validado Por:</label>
+                <input type="text" id="mp_validado_por" name="mp_validado_por" readonly>
+            </div>
+            <br>
+            <div>
+                <label for="remision_prov"><b><i>CRITERIO DE ACEPTACION Y RECHAZO</i></b></label>
+            </div>
+            <br>
+            <div>
+                <label for="mp_gorgojo">La madera presenta gorgojo?</label>
+                <input type="text" id="mp_gorgojo" name="mp_gorgojo" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_gorgojo_si">Sí</label>
+                <input type="checkbox" id="sino_gorgojo_si" name="sino_gorgojo" class="checkbox">
+                <label for="sino_gorgojo_no">No</label>
+                <input type="checkbox" id="sino_gorgojo_no" name="sino_gorgojo" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_partida">La madera esta partida o quebrada?</label>
+                <input type="text" id="mp_partida" name="mp_partida" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_partida_si">Sí</label>
+                <input type="checkbox" id="sino_partida_si" name="sino_partida" class="checkbox">
+                <label for="sino_partida_no">No</label>
+                <input type="checkbox" id="sino_partida_no" name="sino_partida" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_fisicos">La madera tiene agentes contaminantes físicos?</label>
+                <input type="text" id="mp_fisicos" name="mp_fisicos" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_fisicos_si">Sí</label>
+                <input type="checkbox" id="sino_fisicos_si" name="sino_fisicos" class="checkbox">
+                <label for="sino_fisicos_no">No</label>
+                <input type="checkbox" id="sino_fisicos_no" name="sino_fisicos" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_quimicos">La madera tiene agentes contaminantes químicos?</label>
+                <input type="text" id="mp_quimicos" name="mp_quimicos" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_quimicos_si">Sí</label>
+                <input type="checkbox" id="sino_quimicos_si" name="sino_quimicos" class="checkbox">
+                <label for="sino_quimicos_no">No</label>
+                <input type="checkbox" id="sino_quimicos_no" name="sino_quimicos" class="checkbox">
+            </div>
+            <br>
+
+            <div>
+                <label for="mp_biologico">La madera tiene agentes contaminantes biológicos?</label>
+                <input type="text" id="mp_biologico" name="mp_biologico" readonly>
+            </div>
+            <div class="container">
+                <label for="sino_biologico_si">Sí</label>
+                <input type="checkbox" id="sino_biologico_si" name="sino_biologico" class="checkbox">
+                <label for="sino_biologico_no">No</label>
+                <input type="checkbox" id="sino_biologico_no" name="sino_biologico" class="checkbox">
+            </div>
+            <br>
+            <div>
+                <label for="cantidadesxlargoTROZA">Cantidades Por el Largo</label>
+                <input type="text" id="cantidadesxlargoTROZA" name="cantidadesxlargoTROZA" readonly>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; height: 300px;">
+                <img id="imagen" src="" alt="Imagen" style="max-width: 100%; max-height: 100%;">
+                <p id="noImageText" style="display: none;">No se encontró ninguna imagen</p>
+            </div>
+            <br>
+
+
+        </form>
+
+
+        <form id="miFormulario">
+            <label id="textoIngresado" style="user-select: none;" class="namepres">TROZA</label>
+
+            <div id="tablaTroza">
+                <div
+                    style="display: flex; align-items: center; justify-content: center; background-color: #DCDBDB; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                    <label for="diferenciam3TROZA" style="margin-right: 10px; color: black;">Dif. Vol - M3:</label>
+                    <input type="number" id="diferenciam3TROZA" name="diferenciam3TROZA" readonly
+                        style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                    <label for="diferenciacantidadTROZA"
+                        style="margin-left: 50px; margin-right: 10px; color: black;">Dif.
+                        Cantidad:</label>
+                    <input type="number" id="diferenciacantidadTROZA" name="diferenciacantidadTROZA" readonly
+                        style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div style="display:flex; justify-content:center; height: 100px; margin-top: 20px;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #DCDBDB; width: 70%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="margin-bottom: 10px;">
+                                <strong><label for="proveedor_title"
+                                        style="font-size: 17px; color: #333;">Proveedor</label></strong>
+                            </div>
+                            <div>
+                                <label for="M3Prov" style="font-size: 14px; color: black;">M3 Proveedor:</label>
+                                <input type="number" id="M3Prov" name="M3Prov"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+
+                            <div>
+                                <label for="CantidadProvTROZA" style="font-size: 14px; color: black;">Unidades
+                                    Prov:</label>
+                                <input type="number" id="CantidadProvTROZA" name="CantidadProvTROZA"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label for="volm3TROZA" style="font-size: 14px; color: black;">Vol-M3:</label>
+                                <input type="number" id="volm3TROZA" name="volm3TROZA"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+
+                        </div>
+                        <table id="TROZAtablePROV"
+                            style="margin-top: 20px; width: 25%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <tr>
+                                <td>ID</td>
+                                <td>Diamentro/Menor</td>
+                                <td>Largo</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div style="border-left: 2px solid black; height: 300px; margin-left: 80px; margin-right: 20px;">
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #DCDBDB; width: 70%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="margin-bottom: 10px;">
+                                <strong><label for="liberado_title"
+                                        style="font-size: 17px; color: #333;">Liberado</label></strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label for="vol_m3_totalTROZA" style="font-size: 14px; color: black;">Vol-M3
+                                    Total:</label>
+                                <input type="number" id="vol_m3_totalTROZA" name="vol_m3_totalTROZA"
+                                    style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label for="unidades_totalTROZA" style="font-size: 14px; color: black;">Unidades
+                                    Total:</label>
+                                <input type="number" id="unidades_totalTROZA" name="unidades_totalTROZA"
+                                    style="margin-bottom: 100px; font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                                    readonly>
+                            </div>
+                        </div>
+                        <table id="TROZAtableVAL"
+                            style="margin-top: 20px; width: 25%; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <tr>
+                                <td>ID</td>
+                                <td>Punta</td>
+                                <td>Lado/1</td>
+                                <td>Lado/2</td>
+                                <td>Largo</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        </form>
+
+    </main>
+
+    <script>
+
+        function sendStatusAndLoteToApp(status) {
+            var loteValue = document.getElementById("lote").value;
+
+            if (loteValue.trim() === "") {
+                console.error("Error: 'lote' value is empty.");
+                return;
+            }
+
+            // Define the endpoint URL for your Flask route
+            var url = "/update_statusTROZA";
+
+            // Create a new FormData object
+            var formData = new FormData();
+
+            // Append the status and lote values to the FormData object
+            formData.append('status', status);
+            formData.append('lote', loteValue);
+
+            // Send a POST request using fetch
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': getCsrfToken()
+                }
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        // Request was successful
+                        console.log("Status and lote sent to @app successfully.");
+                        showMessage("La solicitud se realizó correctamente.");
+                        redirectToInfoEntradaVal(); // Redirect after successful registration
+                    } else {
+                        // Request failed
+                        console.error("Error sending status and lote to @app.");
+                        showMessage("Hubo un error al procesar la solicitud. Por favor, intenta nuevamente.");
+                    }
+                })
+                .catch(function (error) {
+                    // Catch any other errors that occurred during the fetch
+                    console.error("Error sending status and lote to @app.");
+                    showMessage("Hubo un error al procesar la solicitud. Por favor, intenta nuevamente.");
+                });
+        }
+
+        function redirectToInfoEntradaVal() {
+            // Redirect to the 'info_entrada_val' view
+            window.location.href = "/info_entrada_val";
+        }
+
+        function AceptadoPP() {
+            // Validate the 'fecha' input before proceeding
+            var fechaValue = document.getElementById("fecha").value;
+
+            if (fechaValue.trim() === "") {
+                // Show a popup window indicating that the 'fecha' input is empty
+                alert("Este LOTE no ha sido LIBERADO, no es posible Verificarlo...");
+            } else {
+                // Show a confirmation dialog
+                if (window.confirm("¿Estás seguro de Aceptar este LOTE?")) {
+                    // If the user clicks "OK," proceed with the action
+                    sendStatusAndLoteToApp(1);
+                    console.log("Aceptado clicked. Status sent: 1, lote: " + document.getElementById("lote").value);
+                }
+            }
+        }
+
+        function NoAceptadoPP() {
+            // Validate the 'fecha' input before proceeding
+            var fechaValue = document.getElementById("fecha").value;
+
+            if (fechaValue.trim() === "") {
+                // Show a popup window indicating that the 'fecha' input is empty
+                alert("Este LOTE no ha sido LIBERADO, no es posible Verificarlo...");
+            } else {
+                // Show a confirmation dialog
+                if (window.confirm("¿Estás seguro de Negar este LOTE?")) {
+                    // If the user clicks "OK," proceed with the action
+                    sendStatusAndLoteToApp(2);
+                    console.log("No Aceptado clicked. Status sent: 2, lote: " + document.getElementById("lote").value);
+                }
+            }
+        }
+
+        // Function to get the CSRF token from the hidden input field
+        function getCsrfToken() {
+            return document.querySelector('input[name="csrf_token"]').value;
+        }
+
+        // Function to display messages to the user
+        function showMessage(message) {
+            alert(message);
+        }
+    </script>
+
+
+    <script src="../static/js/info_entrada_js/ver_prov_valTROZA.js"></script>
+    
+    <script>
+
+        function generateExcel() {
+            var fechaValue = document.getElementById("fecha").value;
+            var tablePROVRows = document.querySelectorAll('#TROZAtablePROV tr:not(:first-child)');
+            var diametroTROZAValues = [];
+            var largoTROZAValues = [];
+            var tableLIBRows = document.querySelectorAll('#TROZAtableVAL tr:not(:first-child)');
+            var puntaTROZAValues = [];
+            var lado1TROZAValues = [];
+            var lado2TROZAValues = [];
+            var lengthTROZAValues = [];
+
+            tablePROVRows.forEach(function (row) {
+                var cells = row.cells;
+                diametroTROZAValues.push(cells[1].textContent);
+                largoTROZAValues.push(cells[2].textContent);
+            });
+
+            tableLIBRows.forEach(function (row) {
+                var cells = row.cells;
+                puntaTROZAValues.push(cells[1].textContent);
+                lado1TROZAValues.push(cells[2].textContent);
+                lado2TROZAValues.push(cells[3].textContent);
+                lengthTROZAValues.push(cells[4].textContent);
+            });
+
+            if (fechaValue === "") {
+                alert("Este LOTE no ha sido LIBERADO, no es posible descargar el formulario.");
+            } else {
+                var form = document.createElement('form');
+                form.style.display = 'none'; // Hide the form
+
+                form.method = 'POST';
+                form.action = "{{ url_for('generate_excelTROZAVal') }}";
+
+                // Create a hidden input field for the CSRF token
+                var csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = 'csrf_token';
+                csrfTokenInput.value = "{{ csrf_token() }}";
+
+                // Create an input field for the 'lote' value
+                var loteInput = document.createElement('input');
+                loteInput.type = 'hidden';
+                loteInput.name = 'lote';
+                loteInput.value = document.getElementById('lote').value;
+
+                var fecha_ingresoInput = document.createElement('input');
+                fecha_ingresoInput.type = 'hidden';
+                fecha_ingresoInput.name = 'fecha_ingreso';
+                fecha_ingresoInput.value = document.getElementById('fecha_ingreso').value;
+
+                var fechaInput = document.createElement('input');
+                fechaInput.type = 'hidden';
+                fechaInput.name = 'fecha';
+                fechaInput.value = document.getElementById('fecha').value;
+
+                var proveedorInput = document.createElement('input');
+                proveedorInput.type = 'hidden';
+                proveedorInput.name = 'proveedor';
+                proveedorInput.value = document.getElementById('proveedor').value;
+
+                var mp_gorgojoInput = document.createElement('input');
+                mp_gorgojoInput.type = 'hidden';
+                mp_gorgojoInput.name = 'mp_gorgojo';
+                mp_gorgojoInput.value = document.getElementById('mp_gorgojo').value;
+
+                var mp_partidaInput = document.createElement('input');
+                mp_partidaInput.type = 'hidden';
+                mp_partidaInput.name = 'mp_partida';
+                mp_partidaInput.value = document.getElementById('mp_partida').value;
+
+                var mp_fisicosInput = document.createElement('input');
+                mp_fisicosInput.type = 'hidden';
+                mp_fisicosInput.name = 'mp_fisicos';
+                mp_fisicosInput.value = document.getElementById('mp_fisicos').value;
+
+                var mp_quimicosInput = document.createElement('input');
+                mp_quimicosInput.type = 'hidden';
+                mp_quimicosInput.name = 'mp_quimicos';
+                mp_quimicosInput.value = document.getElementById('mp_quimicos').value;
+
+                var mp_biologicoInput = document.createElement('input');
+                mp_biologicoInput.type = 'hidden';
+                mp_biologicoInput.name = 'mp_biologico';
+                mp_biologicoInput.value = document.getElementById('mp_biologico').value;
+
+                var cantidadesxlargoTROZAInput = document.createElement('input');
+                cantidadesxlargoTROZAInput.type = 'hidden';
+                cantidadesxlargoTROZAInput.name = 'cantidadesxlargoTROZA';
+                cantidadesxlargoTROZAInput.value = document.getElementById('cantidadesxlargoTROZA').value;
+
+                var mp_validado_porInput = document.createElement('input');
+                mp_validado_porInput.type = 'hidden';
+                mp_validado_porInput.name = 'mp_validado_por';
+                mp_validado_porInput.value = document.getElementById('mp_validado_por').value;
+
+                // Create an input field for the 'volm3TROZA' value
+                var diferenciam3TROZAInput = document.createElement('input');
+                diferenciam3TROZAInput.type = 'hidden';
+                diferenciam3TROZAInput.name = 'diferenciam3TROZA';
+                diferenciam3TROZAInput.value = document.getElementById('diferenciam3TROZA').value;
+
+                var diferenciacantidadTROZAInput = document.createElement('input');
+                diferenciacantidadTROZAInput.type = 'hidden';
+                diferenciacantidadTROZAInput.name = 'diferenciacantidadTROZA';
+                diferenciacantidadTROZAInput.value = document.getElementById('diferenciacantidadTROZA').value;
+
+                var volm3TROZAInput = document.createElement('input');
+                volm3TROZAInput.type = 'hidden';
+                volm3TROZAInput.name = 'volm3TROZA';
+                volm3TROZAInput.value = document.getElementById('volm3TROZA').value;
+
+                var CantidadProvTROZAInput = document.createElement('input');
+                CantidadProvTROZAInput.type = 'hidden';
+                CantidadProvTROZAInput.name = 'CantidadProvTROZA';
+                CantidadProvTROZAInput.value = document.getElementById('CantidadProvTROZA').value;
+
+                var M3ProvInput = document.createElement('input');
+                M3ProvInput.type = 'hidden';
+                M3ProvInput.name = 'M3Prov';
+                M3ProvInput.value = document.getElementById('M3Prov').value;
+
+                var vol_m3_totalTROZAInput = document.createElement('input');
+                vol_m3_totalTROZAInput.type = 'hidden';
+                vol_m3_totalTROZAInput.name = 'vol_m3_totalTROZA';
+                vol_m3_totalTROZAInput.value = document.getElementById('vol_m3_totalTROZA').value;
+
+                var unidades_totalTROZAInput = document.createElement('input');
+                unidades_totalTROZAInput.type = 'hidden';
+                unidades_totalTROZAInput.name = 'unidades_totalTROZA';
+                unidades_totalTROZAInput.value = document.getElementById('unidades_totalTROZA').value;
+
+                var diametroTROZAInput = document.createElement('input');
+                diametroTROZAInput.type = 'hidden';
+                diametroTROZAInput.name = 'diametroTROZA';
+                diametroTROZAInput.value = diametroTROZAValues.join(',');
+
+                // Create an input field for largoTROZA values
+                var largoTROZAInput = document.createElement('input');
+                largoTROZAInput.type = 'hidden';
+                largoTROZAInput.name = 'largoTROZA';
+                largoTROZAInput.value = largoTROZAValues.join(',');
+
+                var puntaTROZAInput = document.createElement('input');
+                puntaTROZAInput.type = 'hidden';
+                puntaTROZAInput.name = 'puntaTROZA';
+                puntaTROZAInput.value = puntaTROZAValues.join(',');
+                
+                var lado1TROZAInput = document.createElement('input');
+                lado1TROZAInput.type = 'hidden';
+                lado1TROZAInput.name = 'lado1TROZA';
+                lado1TROZAInput.value = lado1TROZAValues.join(',');
+                
+                var lado2TROZAInput = document.createElement('input');
+                lado2TROZAInput.type = 'hidden';
+                lado2TROZAInput.name = 'lado2TROZA';
+                lado2TROZAInput.value = lado2TROZAValues.join(',');
+
+                var lengthTROZAInput = document.createElement('input');
+                lengthTROZAInput.type = 'hidden';
+                lengthTROZAInput.name = 'lengthTROZA';
+                lengthTROZAInput.value = lengthTROZAValues.join(',');
+
+
+
+                // Append the input fields to the form
+                form.appendChild(csrfTokenInput);
+                form.appendChild(loteInput);
+                form.appendChild(fecha_ingresoInput);
+                form.appendChild(fechaInput);
+                form.appendChild(proveedorInput);
+                form.appendChild(mp_gorgojoInput);
+                form.appendChild(mp_partidaInput);
+                form.appendChild(mp_fisicosInput);
+                form.appendChild(mp_quimicosInput);
+                form.appendChild(mp_biologicoInput);
+                form.appendChild(cantidadesxlargoTROZAInput);
+                form.appendChild(mp_validado_porInput);
+
+                form.appendChild(diferenciam3TROZAInput);
+                form.appendChild(diferenciacantidadTROZAInput);
+
+                form.appendChild(volm3TROZAInput);
+                form.appendChild(CantidadProvTROZAInput);
+                form.appendChild(M3ProvInput);
+                form.appendChild(vol_m3_totalTROZAInput);
+                form.appendChild(unidades_totalTROZAInput);
+
+                form.appendChild(diametroTROZAInput);
+                form.appendChild(largoTROZAInput);
+
+                form.appendChild(puntaTROZAInput);
+                form.appendChild(lado1TROZAInput);
+                form.appendChild(lado2TROZAInput);
+                form.appendChild(lengthTROZAInput);
+
+                // Append the form to the document body
+                document.body.appendChild(form);
+
+                // Submit the form
+                form.submit();
+            }
+        }  
+    </script>
+
+    <a class="botonSubir" onclick="scrollToTop(event)">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+</body>
+
+</html>

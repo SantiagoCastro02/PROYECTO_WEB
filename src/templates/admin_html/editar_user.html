@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+
+    <link rel="stylesheet" href="../static/css/admin_css/editar_user.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text">
+            <p>VOLVER</p>
+        </div>
+        <div class="mi_perfil">
+            <p>EDITAR USUARIO</p>
+        </div>
+        <div class="help-icon" style="user-select: none; margin-bottom: 10px;">
+            <i class="fas fa-question-circle" style="color: white; font-size: 20px;"></i>
+            <div class="tooltip">
+                <span>Si vas a EDITAR los datos del Usuario, recuerda cambiar el nombre de usuario para así actualizar
+                    los datos correctamente.
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="compartir">
+            <span style="left: 50%; transform: translateX(-70%); font-size: 30px;"><i class="fas fa-cog"></i></span>
+            <nav>
+                <a id="pdf-link" href="{{ url_for('home') }}"><i class="fas fa-home"
+                        title="Volver al Menú Principal"></i></a>
+                <a href="#" id="delete-user-link" onclick="confirmUserDeletion()"><i class="fas fa-user-slash"
+                        title="Eliminar Usuario"></i></a>
+            </nav>
+        </div>
+
+        <form method="POST" action="/cambiar_user">
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-primary alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <br>
+            <div>
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="username" name="username" onkeydown="blockSpacebar(event)"
+                    oninput="validateUsername()" required>
+                <p id="error-message" style="color: red; display: none;">No es posible dejar espacios</p>
+                <p id="username-message" style="color: red; display: none;"></p>
+            </div>
+
+            <div>
+                <label for="password">Contraseña: <i class="far fa-eye" onclick="verContrasena()"></i></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div>
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div>
+                <label for="rol">Rol:</label>
+                <select id="rol" name="rol" id="rol-select" required>
+                    <option value="">Seleccione un rol</option>
+                    <option value="M.I WEB">M.I WEB</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" id="hidden-id" name="id" value="{{ user.id }}">
+            <button type="submit" id="editarButton" disabled>EDITAR</button>
+
+        </form>
+    </main>
+
+    <script src="../static/js/admin_js/editar_user.js"></script>
+
+
+
+
+</body>
+
+</html>

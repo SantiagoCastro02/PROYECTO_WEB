@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe de Proveedor</title>
+
+  <link rel="stylesheet" href="../static/css/info_entrada_css/info_entrada.css">
+  <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+  <header>
+    <div class="icon__menu">
+      <i class="fas fa-bars" id="btn_open"></i>
+    </div>
+    <div class="top__text" style="user-select: none;">
+      <p>INFORME DE PROVEEDOR</p>
+    </div>
+    <div class="help-icon" style="user-select: none;">
+      <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+      <div class="tooltip">
+        <div>
+          <b><span style="color: brown;">INFORME PROVEEDOR</span></b><br>
+          En este sitio podrás Agregar y Ver la información detallada del Proveedor con sus datos y herramientas
+          múltiples.
+        </div>
+        <div>
+          <b><span style="color: #22730D;">AGREGAR LOTE</span></b><br>
+          Para agregar un Informe, dirigirte al botón "AGREGAR INFORME", tendrás tres opciones PP, BLOQUE Y TROZA,
+          selecciona la presentación que requieras y llena el formulario.
+
+        </div>
+        <div>
+          <b><span style="color: #f1c40f;">VER INFORME</span></b><br>
+          Para Ver el Informe, dirigirte a la columna Acciones y ubica el informe que deseas ver haciendo clic sobre el
+          "Ver", una vez dentro podrás ver toda la información.
+        </div>
+        <div>
+          <b><span style="color: blue;">FILTRADO</span></b><br>
+          Podrás filtrar mediante PRESENTACION usando los botones que se encuentra en la parte superior derecha.
+          Otro filtro, es seleccionando una de las opciones del desplegable y digitando en el campo de texto dicha
+          información que requieras.
+        </div>
+      </div>
+    </div>
+    <div class="btn-presentacion" style="user-select: none;">
+      <button id="pp-button" style="margin-left: 600px;"><b>PP</b></button>
+      <button id="bloque-button"><b>BLOQUE</b></button>
+      <button id="troza-button"><b>TROZA</b></button>
+    </div>
+  </header>
+
+
+  <div class="menu__side" id="menu_side" style="user-select: none;">
+
+    <div class="name__page">
+      <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+      <h4><em>M.I software</em></h4>
+    </div>
+
+
+    <div class="options__menu">
+
+      <a href="{{ url_for('home') }}">
+        <div class="option">
+          <i class="fas fa-home" title="Inicio"></i>
+          <h4>Inicio</h4>
+        </div>
+      </a>
+
+      <a href="{{ url_for('info_prov_val') }}">
+        <div class="option">
+          <i class="fas fa-tree"></i>
+          <h4>Informe MP</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-sharp fa-solid fa-industry"></i>
+          <h4>Planta e Inventario</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-users-rectangle"></i>
+          <h4>Clientes, Ficha TEC. y Orden</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-truck-moving"></i>
+          <h4>Despachos</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <h4>Bodega</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-light fa-newspaper"></i>
+          <h4>Resumen</h4>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="ultimo_lote" style="user-select: none;">
+    <label for="ultimo_lote">Último lote registrado:</label>
+    <div class="input-container">
+      <input type="text" id="ultimo_lote" name="ultimo_lote" readonly
+        value="{{ last_infoLOTE if last_infoLOTE else '' }}">
+      <i class="fas fa-copy copy-icon" onclick="copyText()" title="Copiar"></i>
+    </div>
+  </div>
+
+
+
+  <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="user-select: none;">
+    <a class="btn btn-add" href="{{ url_for('agregar_mp') }}">
+      <i class="fas fa-tree"></i> AGREGAR LOTE
+    </a>
+  </div>
+
+
+  <main>
+    <div class="search-container" style="user-select: none;">
+      <label for="filter-select">Filtrar por:</label>
+      <select id="filter-select" name="filter-select" style="margin-right: 10px;">
+        <option value="lote">LOTE</option>
+        <option value="fecha_ingreso">Fecha de Ingreso</option>
+        <option value="proveedor">Proveedor</option>
+      </select>
+
+      <div class="search-bar">
+        <form id="search-form">
+          <input type="text" id="search-input" name="search-input" placeholder="Ingresa">
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+    <table>
+      <div id="no-results-message" style="user-select: none;" class="no-results-message">No se encontró ningún
+        resultado... :(</div>
+      <br>
+      <thead>
+        <tr>
+          <th style="user-select: none;">LOTE N°</th>
+          <th style="user-select: none;">Fecha Ingreso</th>
+          <th style="user-select: none;">Proveedor</th>
+          <th style="user-select: none;">Presentacion</th>
+          <th style="user-select: none;">Pulgadas</th>
+          <th style="user-select: none;">M3</th>
+          <th style="user-select: none;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        {% for user in usersPP[::-1] %}
+        <tr data-id="{{ user.lote }}">
+          <td>{{ user.lotePP }}</td>
+          <td>{{ user.fecha_ingresoPP }}</td>
+          <td>{{ user.proveedorPP }}</td>
+          <td>{{ user.presentacionPP }}</td>
+          <td>
+            {% if user.presentacionPP == "BLOQUE" %}
+            {{ user.pulgadasBLOQUE }}
+            {% elif user.presentacionPP == "PP" %}
+            {{ user.pulgPP }}
+            {% elif user.presentacionPP == "TROZA" %}
+            <span style="color: green;">N/A</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if user.presentacionPP == "BLOQUE" %}
+            <span style="color: green;">N/A</span>
+            {% elif user.presentacionPP == "PP" %}
+            {{ user.m3PP }}
+            {% elif user.presentacionPP == "TROZA" %}
+            {{ user.M3ProvTROZA }}
+            {% endif %}
+          </td>
+          <td>
+            <a href="/ver_infoPP?lote={{ user.lotePP }}&fecha_ingreso={{ user.fecha_ingresoPP }}&proveedor={{ user.proveedorPP }}&receptor={{ user.receptorPP }}&remision_prov={{ user.remision_provPP }}&transportador={{ user.transportadorPP }}&placa={{ user.placaPP }}&presentacion={{ user.presentacionPP}}&m3PP={{ user.m3PP }}&pulgPP={{ user.pulgPP }}&cantidadtotalPP={{ user.cantidadtotalPP }}&infotablepp={{ user.infotablepp }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)" title="Ver"><i
+                class="fas fa-eye"></i></a>
+          </td>
+
+        </tr>
+        {% endfor %}
+
+        {% for user in usersBLOQUE[::-1] %}
+        <tr data-id="{{ user.lote }}">
+          <td>{{ user.loteBLOQUE }}</td>
+          <td>{{ user.fecha_ingresoBLOQUE }}</td>
+          <td>{{ user.proveedorBLOQUE }}</td>
+          <td>{{ user.presentacionBLOQUE }}</td>
+          <td>
+            {% if user.presentacionBLOQUE == "BLOQUE" %}
+            {{ user.pulgadasBLOQUE }}
+            {% elif user.presentacionBLOQUE == "PP" %}
+            {{ user.pulgPP }}
+            {% elif user.presentacionBLOQUE == "TROZA" %}
+            <span style="color: green;">N/A</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if user.presentacionBLOQUE == "BLOQUE" %}
+            <span style="color: green;">N/A</span>
+            {% elif user.presentacionBLOQUE == "PP" %}
+            {{ user.m3PP }}
+            {% elif user.presentacionBLOQUE == "TROZA" %}
+            {{ user.M3ProvTROZA }}
+            {% endif %}
+          </td>
+          <td>
+            <a href="/ver_infoBLOQUE?lote={{ user.loteBLOQUE }}&fecha_ingreso={{ user.fecha_ingresoBLOQUE }}&proveedor={{ user.proveedorBLOQUE }}&receptor={{ user.receptorBLOQUE }}&remision_prov={{ user.remision_provBLOQUE }}&talo_salvoconducto={{ user.talo_salvoconductoBLOQUE }}&remi_salvoconducto={{ user.remi_salvoconductoBLOQUE }}&nombre_razon={{ user.nombre_razonBLOQUE }}&entidad={{ user.entidadBLOQUE }}&no_registro={{ user.no_registroBLOQUE }}&departamento={{ user.departamentoBLOQUE }}&municipio={{ user.municipioBLOQUE }}&vereda={{ user.veredaBLOQUE }}&transportador={{ user.transportadorBLOQUE }}&placa={{ user.placaBLOQUE }}&comun={{ user.comunBLOQUE }}&cientifico={{ user.cientificoBLOQUE }}&presentacion={{ user.presentacionBLOQUE }}&medidaBLOQUE={{ user.medidaBLOQUE }}&cantpulgBLOQUE={{ user.cantpulgBLOQUE }}&pulgadasBLOQUE={{ user.pulgadasBLOQUE }}&infotablebloque={{ user.infotablebloque }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)" title="Ver"><i
+                class="fas fa-eye"></i></a>
+          </td>
+
+        </tr>
+        {% endfor %}
+        {% for user in usersTROZA[::-1] %}
+        <tr data-id="{{ user.lote }}">
+          <td>{{ user.loteTROZA }}</td>
+          <td>{{ user.fecha_ingresoTROZA }}</td>
+          <td>{{ user.proveedorTROZA }}</td>
+          <td>{{ user.presentacionTROZA }}</td>
+          <td>
+            {% if user.presentacionTROZA == "BLOQUE" %}
+            {{ user.pulgadasBLOQUE }}
+            {% elif user.presentacionTROZA == "PP" %}
+            {{ user.pulgPP }}
+            {% elif user.presentacionTROZA == "TROZA" %}
+            <span style="color: green;">N/A</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if user.presentacionTROZA == "BLOQUE" %}
+            <span style="color: green;">N/A</span>
+            {% elif user.presentacionTROZA == "PP" %}
+            {{ user.m3PP }}
+            {% elif user.presentacionTROZA == "TROZA" %}
+            {{ user.M3ProvTROZA }}
+            {% endif %}
+          </td>
+          <td>
+            <a href="/ver_infoTROZA?lote={{ user.loteTROZA }}&fecha_ingreso={{ user.fecha_ingresoTROZA }}&proveedor={{ user.proveedorTROZA }}&receptor={{ user.receptorTROZA }}&remision_prov={{ user.remision_provTROZA }}&talo_salvoconducto={{ user.talo_salvoconductoTROZA }}&remi_salvoconducto={{ user.remi_salvoconductoTROZA }}&nombre_razon={{ user.nombre_razonTROZA }}&entidad={{ user.entidadTROZA }}&no_registro={{ user.no_registroTROZA }}&departamento={{ user.departamentoTROZA }}&municipio={{ user.municipioTROZA }}&vereda={{ user.veredaTROZA }}&transportador={{ user.transportadorTROZA }}&placa={{ user.placaTROZA }}&comun={{ user.comunTROZA }}&cientifico={{ user.cientificoTROZA }}&presentacion={{ user.presentacionTROZA }}&volm3TROZA={{ user.volm3TROZA }}&M3ProvTROZA={{ user.M3ProvTROZA }}&CantidadProvTROZA={{ user.CantidadProvTROZA }}&infotabletroza={{ user.infotabletroza }}"
+              class="btn-action yellow" onclick="verFila(this.parentElement.parentElement)" title="Ver"><i
+                class="fas fa-eye"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+
+
+  <script src="../static/js/info_entrada_js/info_entrada.js"></script>
+</body>
+
+</html>

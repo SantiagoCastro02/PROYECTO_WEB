@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administar Usuarios</title>
+
+  <link rel="stylesheet" href="../static/css/admin_css/admin_user.css">
+  <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+  <header>
+    <div class="icon__menu">
+      <i class="fas fa-bars" id="btn_open"></i>
+    </div>
+    <div class="top__text" style="user-select: none;">
+      <p>ADMINISTRAR USUARIOS</p>
+    </div>
+    <div class="btn-perfil" role="group" aria-label="Button group with nested dropdown" style="user-select: none;">
+      <a class="btn btn-adminuser" href="{{ url_for('perfil') }}">Mi Perfil</a>
+    </div>
+    <div class="help-icon" style="user-select: none;">
+      <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+      <div class="tooltip">
+        <div>
+          <b><span style="color: #22730D;">AGREGAR USUARIO</span></b><br>
+          Para agregar un Usuario, dirigite al botón "AGREGAR USUARIO" y llena lo solicitado para crear un usuario nuevo.
+        </div>
+        <div>
+          <b><span style="color: #f1c40f;">EDITAR USUARIO</span></b><br>
+          Para editar un Usuario, dirigite a la columna Acciones y ubica al usuario que deseas editar haciendo clic sobre el "Editar", una vez dentro podras ver informacion sobre el usuario, podras editar o agregar nueva informacion.
+        </div>
+        <div>
+          <b><span style="color: red;">ELIMINAR USUARIO</span></b><br>
+          Para eliminar un Usuario, bastará con ubicar en la tabla el usuario que se desee eliminar, usar el botón de Acción de EDITAR y dirigirse al botón llamado Eliminar Usuario.
+        </div>
+        <div>
+          <b><span style="color: blue;">ROL USUARIO</span></b><br>
+          Los Usuarios ADMIN podran crear, editar, eliminar y ver los usuarios disponibles.
+          Los Usuarios M.I WEB no tendran acceso al "Administrador de Usuarios".
+        </div>
+      </div>
+    </div>
+    
+  </header>
+
+
+  <div class="menu__side" id="menu_side" style="user-select: none;">
+
+    <div class="name__page">
+      <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+      <h4><em>M.I software</em></h4>
+    </div>
+
+
+    <div class="options__menu">
+
+      <a href="{{ url_for('home') }}">
+        <div class="option">
+          <i class="fas fa-home" title="Inicio"></i>
+          <h4>Inicio</h4>
+        </div>
+      </a>
+
+      <a href="{{ url_for('info_prov_val') }}">
+        <div class="option">
+          <i class="fas fa-tree"></i>
+          <h4>Informe MP</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-sharp fa-solid fa-industry"></i>
+          <h4>Planta e Inventario</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-users-rectangle"></i>
+          <h4>Clientes, Ficha TEC. y Orden</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-truck-moving"></i>
+          <h4>Despachos</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <h4>Bodega</h4>
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="option">
+          <i class="fa-solid fa-light fa-newspaper"></i>
+          <h4>Resumen</h4>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <main>
+    <br>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="user-select: none;">
+      <a class="btn btn-add" href="{{ url_for('agregar_user') }}"><i class="fas fa-user-plus"></i> AGREGAR USUARIO</a>
+    </div>
+
+
+    <!-- aquí iría el resto del contenido de la página -->
+  </main>
+
+  <main>
+    <div class="search-container" style="user-select: none;">
+      <label for="filter-select">Filtrar por:</label>
+      <select id="filter-select" name="filter-select" style="margin-right: 10px;">
+        <option value="nombre">Nombre Completo</option>
+        <option value="usuario">Usuario</option>
+        <option value="rol">Rol</option>
+      </select>
+      <div class="search-bar">
+        <form>
+          <input type="text" id="search-input" name="search-input" placeholder="Ingresa">
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+
+    <table>
+      <div id="no-results-message" class="no-results-message">No se encontró ningún resultado... :(</div>
+      <br>
+      <thead>
+        <tr>
+          <th style="user-select: none;">ID</th>
+          <th style="user-select: none;">Nombre Completo</th>
+          <th style="user-select: none;">Usuario</th>
+          <th style="user-select: none;">Rol</th>
+          <th style="user-select: none;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        {% set reversed_users = users[::-1] %}
+        {% for user in reversed_users %}
+        <tr id="fila-{{ user.id }}" data-user-id="{{ user.id }}">
+          <td>{{ user.id }}</td>
+          <td>{{ user.fullname }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.rol }}</td>
+          <td>
+            <a href="/editar_user?id={{ user.id }}&fullname={{ user.fullname }}&username={{ user.username }}&rol={{ user.rol }}&UserExist={{ user.UserExist }}"
+              class="btn-action yellow" onclick="editarFila(this.parentElement.parentElement)" title="Editar">
+              <i class="fas fa-edit"></i>
+            </a>
+
+          </td>
+        </tr>
+        
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </main>
+  
+  
+
+  <script src="../static/js/admin_js/admin_user.js"></script>
+</body>
+
+</html>

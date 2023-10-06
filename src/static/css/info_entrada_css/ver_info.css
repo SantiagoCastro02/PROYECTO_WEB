@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Roboto:700);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+main {
+    padding: 20px;
+}
+
+header {
+    width: 100%;
+    height: 80px;
+    background: #23A167;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    padding: 0 10px;
+}
+
+
+
+.top__text p {
+  color: #fff;
+  margin-right: 100px;
+}
+.top_agregar p {
+  color: white;
+  font-weight: bold;
+  font-size: 18px; /* Cambiar 16px por el tamaño de letra deseado */
+}
+
+  
+  .icon__menu i {
+    color: #fff;
+  }
+  
+
+.icon__menu {
+    margin-right: 15px;
+}
+
+.icon__menu {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(10px);
+}
+
+.icon__menu i {
+    font-size: 25px;
+    cursor: pointer;
+    position: absolute;
+}
+
+main {
+    margin: auto; /* centra verticalmente y horizontalmente */
+    padding: 100px;
+}
+
+
+.title {
+    text-align: center;
+    font-weight: bold;
+}
+form {
+    display: flex;
+    flex-direction: column;
+
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    max-width: 750px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #f1c40f;
+  }
+  
+h1,
+p {
+    text-align: center;
+}
+
+.btn-agregar {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  background-color: #22730D;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input#lote {
+  width: 10%;
+  
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  
+
+  .compartir {
+    position: absolute;
+    width: 400px;
+    left: 18%;
+    margin-left: -200px;
+    top: 25%;
+    margin-top: -40px;
+    border-radius: 100px;
+  }
+  .compartir span {
+    width: 100px;
+    line-height: 50px;
+    display: inline-block;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: absolute;
+    left: 26%;
+    color: white;
+    font-size: 14px;
+    margin-left: -100px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  .compartir nav {
+    font-size: 0;
+  }
+  .compartir a {
+    line-height: 50px;
+    width: 50px;
+    text-align: center;
+    display: inline-block;
+    background: linear-gradient(180deg, #1482ad, #1482ad);
+    color: #ffffff;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+    margin: 0 -5px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  .compartir a:nth-child(1) {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-left: 0;
+  }
+  .compartir a:nth-child(1):hover {
+    background-color: #ea4335;
+  }
+
+
+  .compartir a:nth-child(2) {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: 0;
+  }
+  .compartir a:nth-child(2):hover {
+    background-color: #22730D;
+  }
+  .compartir:hover span, .compartir.hover span {
+    opacity: 0;
+  }
+  .compartir:hover a {
+    margin: 0 10px;
+    color: #413838;
+    font-size: 28px;
+    border-radius: 50%;
+    background: #ffffff15; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);; 
+    -webkit-backdrop-filter: blur(2px);; 
+
+  }
+  .compartir:hover a:hover {
+    color: #fff;
+  }
+
+  .namepres {
+    display: block; /* Hace que la etiqueta sea un bloque */
+    text-align: center; /* Centrar el texto horizontalmente */
+    margin: 20px auto; /* Margen externo y centrado horizontal */
+    padding: 10px; /* Espacio interno */
+    font-size: 15px; /* Tamaño de fuente */
+    background-color: #f2f2f2; /* Color de fondo */
+    border: 2px solid #ccc; /* Borde de 2px de ancho y color gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+
+
+  #verBtn {
+    background-color: #4CAF50; /* Color de fondo */
+    border: none; /* Borde sin estilo */
+    color: white; /* Color del texto */
+    padding: 5px 24px; /* Espacio alrededor del texto */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Bloque en línea */
+    font-size: 16px; /* Tamaño de fuente */
+    margin: 10px; /* Margen externo */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor al pasar por encima */
+    transition: background-color 0.3s ease; /* Transición de color al pasar por encima */
+  }
+  
+  #verBtn:hover {
+    background-color: #3e8e41; /* Color de fondo al pasar por encima */
+  }
+
+  table {
+    border-collapse: collapse; /* Unir bordes */
+    margin: 20px auto; /* Margen externo y centrado horizontal */
+  }
+  
+  thead {
+    background-color: #f2f2f2; /* Color de fondo */
+  }
+  
+  th,
+  td {
+    padding: 12px; /* Espacio alrededor de los contenidos */
+    text-align: center; /* Alineación del contenido */
+    border: 1px solid #ddd; /* Borde con un color gris claro */
+  }
+  
+  th {
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    text-transform: uppercase; /* Mayúsculas */
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo en filas pares */
+  }
+  
+  tbody td:last-child {
+    font-weight: bold; /* Texto en negrita en la última columna */
+  }
+  
+  

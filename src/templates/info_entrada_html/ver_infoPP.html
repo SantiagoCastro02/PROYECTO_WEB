@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Informe Proveedor</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/ver_info.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>INFORME PROVEEDOR PP</p>
+        </div>
+
+
+
+    </header>
+
+
+
+
+    <main>
+        <br>
+        <h1 class="title" style="user-select: none;">INFORME PP</h1>
+
+        <form>
+            <div class="form-group centered">
+                <label for="lote" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="lote" name="lote" style="font-size: 15px;" readonly>
+            </div>
+
+
+            <div>
+                <label for="fecha_ingreso">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingreso" name="fecha_ingreso" readonly>
+
+            </div>
+            <div>
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" readonly>
+            </div>
+            <div>
+                <label for="receptor">Receptor:</label>
+                <input type="text" id="receptor" name="receptor" readonly>
+            </div>
+            <div>
+                <label for="remision_prov">N° Remision Prov:</label>
+                <input type="text" id="remision_prov" name="remision_prov" readonly>
+            </div>
+            <div>
+                <label for="transportador">Transportador:</label>
+                <input type="text" id="transportador" name="transportador" readonly>
+            </div>
+            <div>
+                <label for="placa">Placa Vehiculo:</label>
+                <input type="text" id="placa" name="placa" readonly>
+            </div>
+            <div>
+                <br>
+                <strong><label for="presentacion">PRESENTACION:</label></strong>
+            </div>
+            <div>
+                <input type="text" id="presentacion" name="presentacion" readonly>
+            </div>
+
+            <div id="tablaPP">
+                <div
+                    style="display: flex; align-items: center; justify-content: center; background-color: #DCDBDB; padding: 20px; border-radius: 5px;">
+                    <label for="m3PP" style="margin-right: 10px; font-size: 14px;">M3 Total:</label>
+                    <input type="text" id="m3PP" name="m3PP"
+                        style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px; margin-right: 40px;"
+                        readonly>
+
+                    <label for="pulgPP" style="margin-right: 10px; font-size: 14px;">Pulgadas Total:</label>
+                    <input type="text" id="pulgPP" name="pulgPP"
+                        style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                        readonly>
+
+                    <label for="cantidadtotalPP"
+                        style="margin-right: 10px; margin-left: 35px; font-size: 14px;">Cantidad Total:</label>
+                    <input type="text" id="cantidadtotalPP" name="cantidadtotalPP"
+                        style="font-size: 14px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 120px;"
+                        readonly>
+                </div>
+                <table id="PPtablePROV">
+                    <tr>
+                        <td>ID</td>
+                        <td>Calibre</td>
+                        <td>Ancho</td>
+                        <td>Largo</td>
+                        <td>Unidades</td>
+                    </tr>
+                </table>
+            </div>
+
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        </form>
+
+    </main>
+
+
+
+
+    <script src="../static/js/info_entrada_js/ver_infoPP.js"></script>
+
+
+
+</body>
+
+</html>

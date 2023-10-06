@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe MP</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/info_prov_val.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-bars" id="btn_open"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>INFORME MATERIA PRIMA</p>
+        </div>
+
+    </header>
+
+
+    <div class="menu__side" id="menu_side" style="user-select: none;">
+
+        <div class="name__page">
+            <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+            <h4><em>M.I software</em></h4>
+        </div>
+
+
+        <div class="options__menu">
+
+            <a href="{{ url_for('home') }}">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+
+            <a class="selected">
+                <div class="option">
+                    <i class="fas fa-tree"></i>
+                    <h4>Informe MP</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-sharp fa-solid fa-industry"></i>
+                    <h4>Planta e Inventario</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h4>Clientes, Ficha TEC. y Orden</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-truck-moving"></i>
+                    <h4>Despachos</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h4>Bodega</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-light fa-newspaper"></i>
+                    <h4>Resumen</h4>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    <img src="../static/img/splash.png" alt="Descripción de la imagen" class="imagen-principal">
+
+    <div class="buttons-infos" style="user-select: none;">
+        <button id="prov" class="text">PROVEEDOR</button>
+        <button id="val" class="text">LIBERADO</button>
+    </div>
+
+    <script src="../static/js/info_entrada_js/info_prov_val.js"></script>
+
+</body>
+
+</html>

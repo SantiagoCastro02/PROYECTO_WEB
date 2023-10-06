@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe MP</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/agregar_mp.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-bars" id="btn_open"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>AGREGAR MATERIA PRIMA</p>
+        </div>
+
+    </header>
+
+
+    <div class="menu__side" id="menu_side" style="user-select: none;">
+
+        <div class="name__page">
+            <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+            <h4><em>M.I software</em></h4>
+        </div>
+
+
+        <div class="options__menu">
+
+            <a href="{{ url_for('home') }}">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+
+            <a href="{{ url_for('info_prov_val') }}">
+                <div class="option">
+                    <i class="fas fa-tree"></i>
+                    <h4>Informe MP</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-sharp fa-solid fa-industry"></i>
+                    <h4>Planta e Inventario</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h4>Clientes, Ficha TEC. y Orden</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-truck-moving"></i>
+                    <h4>Despachos</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h4>Bodega</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-light fa-newspaper"></i>
+                    <h4>Resumen</h4>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+    <div class="return_icon">
+        <i class="fas fa-arrow-left" onclick="goBack()"></i>
+    </div>
+
+    <img src="../static/img/splash.png" alt="Descripción de la imagen" class="imagen-principal"
+        style="user-select: none;">
+    <div class="selecciona_mp" style="user-select: none;">SELECCIONA UNA PRESENTACIÓN PARA AGREGAR MP</div>
+    <div class="buttons-infos" style="user-select: none;">
+        <button id="pp" class="text">PP</button>
+        <button id="bloque" class="text">BLOQUE</button>
+        <button id="troza" class="text">TROZA</button>
+    </div>
+
+    <script src="../static/js/info_entrada_js/agregar_mp.js"></script>
+
+</body>
+
+</html>

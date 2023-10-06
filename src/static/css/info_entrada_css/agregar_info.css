@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+main {
+  padding: 20px;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  background: #22730D;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  padding: 0 10px;
+}
+
+
+
+.top__text p {
+  color: #fff;
+  margin-right: 100px;
+}
+
+.top_agregar p {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  /* Cambiar 16px por el tamaño de letra deseado */
+}
+
+
+.icon__menu i {
+  color: #fff;
+}
+
+
+.icon__menu {
+  margin-right: 15px;
+}
+
+.icon__menu {
+  width: 60px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(10px);
+}
+
+.icon__menu i {
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+}
+
+main {
+  margin: auto;
+  /* centra verticalmente y horizontalmente */
+  padding: 100px;
+}
+
+
+.title {
+  text-align: center;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  max-width: 750px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input,
+select {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+button[type="submit"] {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+h1,
+p {
+  text-align: center;
+}
+
+.btn-agregar {
+  display: block;
+  margin: 100px auto 0;
+  width: 200px;
+  height: 50px;
+  background-color: #22730D;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input#lotePP {
+  width: 10%;
+}
+
+input#loteBLOQUE {
+  width: 10%;
+}
+
+input#loteTROZA {
+  width: 10%;
+}
+
+select {
+  width: 50%;
+  /* ajustar el ancho al 50% del ancho del elemento contenedor */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#M3ProvTROZA {
+  max-width: 200px;
+  margin-right: 10px;
+}
+
+#CantidadProvTROZA {
+  max-width: 200px;
+  margin-left: 10px;
+}
+
+.tabla-con-marco {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.tabla-con-marco th,
+.tabla-con-marco td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.button {
+  display: inline-block;
+  background-color: #4CAF50;
+  /* Color de fondo */
+  border: none;
+  color: white;
+  /* Color del texto */
+  text-align: center;
+  font-size: 13px;
+  padding: 10px 10px;
+  /* Espaciado interno */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Transición suave */
+  border-radius: 4px;
+  /* Bordes redondeados */
+}
+
+.button:hover {
+  background-color: #45a049;
+  /* Color de fondo al pasar el mouse */
+}
+
+
+
+.delete-icon {
+  /* Estilos para el icono de eliminación */
+  font-size: 12px;
+  /* Tamaño del icono */
+  color: red;
+  /* Color del icono */
+  /* Otros estilos que desees aplicar al icono */
+}
+
+.btn-delete {
+  /* Agrega aquí tus estilos personalizados */
+  color: red;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.help-icon {
+  position: relative;
+  display: inline-block;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  /* Ancho modificado */
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.help-icon:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+#m3PP {
+  width: 80px;
+  background-color: gray;
+  /* Color de fondo verde */
+  color: white;
+  /* Color del texto en blanco para resaltar */
+  border: none;
+  /* Sin borde */
+}
+
+#pulgPP {
+  width: 80px;
+  background-color: gray;
+  /* Color de fondo verde */
+  color: white;
+  /* Color del texto en blanco para resaltar */
+  border: none;
+  /* Sin borde */
+}
+
+#cantidadtotalPP {
+  width: 80px;
+  background-color: gray;
+  /* Color de fondo verde */
+  color: white;
+  /* Color del texto en blanco para resaltar */
+  border: none;
+  /* Sin borde */
+}
+
+#pulgadasBLOQUE {
+  width: 80px;
+  background-color: gray;
+  /* Color de fondo verde */
+  color: white;
+  /* Color del texto en blanco para resaltar */
+  border: none;
+  /* Sin borde */
+}
+
+#volm3TROZA {
+  width: 80px;
+  background-color: gray;
+  /* Color de fondo verde */
+  color: white;
+  /* Color del texto en blanco para resaltar */
+  border: none;
+  /* Sin borde */
+}

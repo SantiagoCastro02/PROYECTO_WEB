@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Informe TROZA</title>
+
+    <link rel="stylesheet" href="../static/css/info_entrada_css/agregar_info.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>VOLVER</p>
+        </div>
+        <div class="top_agregar" style="user-select: none;">
+            <p>AGREGAR INFORME TROZA</p>
+        </div>
+
+    </header>
+
+    <main>
+        <h1 class="title" style="user-select: none;">INFORME TROZA</h1>
+
+
+        <form id="myForm" method="POST" action="/agregar_infoTROZA">
+
+            <div class="form-group centered">
+                <label for="loteTROZA" style="font-size: 17px;">LOTE N°:</label>
+                <input type="text" id="loteTROZA" name="loteTROZA" required style="font-size: 15px;" readonly
+                    value="{{ lote }}">
+            </div>
+            <div>
+                <label for="fecha_ingresoTROZA">Fecha Ingreso a la Planta:</label>
+                <input type="date" id="fecha_ingresoTROZA" name="fecha_ingresoTROZA" required>
+
+            </div>
+            <div>
+                <label for="proveedorTROZA">Proveedor:</label>
+                <input type="text" id="proveedorTROZA" name="proveedorTROZA" required>
+            </div>
+            <div>
+                <label for="receptorTROZA">Receptor:</label>
+                <input type="text" id="receptorTROZA" name="receptorTROZA" required>
+            </div>
+            <div>
+                <label for="remision_provTROZA">N° Remision Prov:</label>
+                <input type="text" id="remision_provTROZA" name="remision_provTROZA" required>
+            </div>
+            <div>
+                <label for="talo_salvoconductoTROZA">N° Talonario Salvoconducto:</label>
+                <input type="text" id="talo_salvoconductoTROZA" name="talo_salvoconductoTROZA" required>
+            </div>
+            <div>
+                <label for="remi_salvoconductoTROZA">N° Remision Salvoconducto:</label>
+                <input type="text" id="remi_salvoconductoTROZA" name="remi_salvoconductoTROZA" required>
+            </div>
+            <div>
+                <label for="nombre_razonTROZA">Nombre o Razon Social del Titular del Registro:</label>
+                <input type="text" id="nombre_razonTROZA" name="nombre_razonTROZA" required>
+            </div>
+            <div>
+                <label for="entidadTROZA">Entidad que Expide:</label>
+                <input type="text" id="entidadTROZA" name="entidadTROZA" required>
+            </div>
+            <div>
+                <label for="no_registroTROZA">Registro N°:</label>
+                <input type="text" id="no_registroTROZA" name="no_registroTROZA" required>
+            </div>
+            <br>
+            <div>
+                <strong><label for="procedencia">PROCEDENCIA:</label></strong>
+            </div>
+
+            <div>
+                <label for="departamentoTROZA">Departamento:</label>
+                <select id="departamentoTROZA" name="departamentoTROZA" onchange="cargarMunicipios()" required>
+                    <option value="" disabled selected>Seleccione un Departamento</option>
+
+                </select>
+            </div>
+            <div>
+                <label for="municipioTROZA">Municipio:</label>
+                <select id="municipioTROZA" name="municipioTROZA" required>
+
+                </select>
+            </div>
+
+            <div>
+                <label for="veredaTROZA">Vereda:</label>
+                <input type="text" id="veredaTROZA" name="veredaTROZA" required>
+            </div>
+            <div>
+                <label for="transportadorTROZA">Transportador:</label>
+                <input type="text" id="transportadorTROZA" name="transportadorTROZA">
+            </div>
+            <div>
+                <label for="placaTROZA">Placa Vehiculo:</label>
+                <input type="text" id="placaTROZA" name="placaTROZA">
+            </div>
+            <br>
+            <div>
+                <strong><label for="especie">ESPECIE:</label></strong>
+            </div>
+
+            <div>
+                <label for="comunTROZA">Nombre Común:</label>
+                <input type="text" id="comunTROZA" name="comunTROZA" required>
+            </div>
+            <div>
+                <label for="cientificoTROZA">Nombre Cientifico:</label>
+                <input type="text" id="cientificoTROZA" name="cientificoTROZA" required>
+            </div>
+            <br>
+            <div>
+                <label for="presentacionTROZA">Presentacion:</label>
+                <input type="text" id="presentacionTROZA" name="presentacionTROZA" value="TROZA" readonly required>
+            </div>
+
+            <div class="help-icon">
+                <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+                <div class="tooltip">
+                    <span>Para ingresar las referencia y sus cantidades de la remision, ingresa en el campo M3
+                        Prov. el metraje que indica en la remision, en el campo Cantidad Prov. ingresa las unidades total que indica en la remision,
+                        en el campo Diamentro Menor ingresa cada uno de los diametros de la tabla de la remision, en el
+                        campo Largo ingresa la referencia en centimetros.
+                        Al ingresar datos en este campo M3 Prov. no requeriras de usar puntos ni comas ya que se hara
+                        automaticamente una vez ingresado.
+                    </span>
+                </div>
+            </div>
+
+            <div id="troza-table" style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <label for="M3ProvTROZA" style="margin-right: 80px;">Ingresa el M3 Prov.</label>
+                    <label for="CantidadProvTROZA">Ingresa las Unds. Prov.</label>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <input type="number" id="M3ProvTROZA" name="M3ProvTROZA" step="any" oninput="formatDecimal(this)">
+
+                    <input type="text" id="CantidadProvTROZA" name="CantidadProvTROZA">
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <label for="volm3TROZA" style="margin-right: 10px;">Vol-M3 Total:</label>
+                    <input type="text" id="volm3TROZA" name="volm3TROZA" readonly style="width: 80px;">
+                </div>
+
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <div style="text-align: center; margin-right: 10px;">
+                        <label for="diametroTROZA">Diámetro Menor:</label>
+                        <input type="number" name="diametroTROZA" id="diametroTROZA" step="1"
+                            oninput="limitarMaximoDosDigitos(this)">
+                    </div>
+                    <div style="text-align: center;">
+                        <label for="largoTROZA">Largo:</label>
+                        <input type="number" name="largoTROZA" id="largoTROZA" step="1"
+                            oninput="limitarMaximoTresDigitos(this)">
+                    </div>
+                </div>
+                <div>
+                    <button class="button" type="button" onclick="agregarFilaTROZA()">Añadir</button>
+                </div>
+                <br>
+                <table id="tablaTroza" style="margin: auto;" class="tabla-con-marco">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Diamentro Menor</th>
+                            <th>Largo</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaTroza">
+                        <!-- Existing table rows go here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button id="submitBtn" type="submit" class="btn-agregar" onclick="submitForm()">ENVIAR</button>
+
+        </form>
+
+    </main>
+
+    </script>
+    <script src="../static/js/info_entrada_js/agregar_infoTROZA.js"></script>
+</body>
+
+</html>

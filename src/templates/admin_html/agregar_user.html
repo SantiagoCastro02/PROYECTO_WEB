@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Usuario</title>
+
+    <link rel="stylesheet" href="../static/css/admin_css/agregar_user.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+        <div class="top__text">
+            <p>VOLVER</p>
+        </div>
+        <div class="mi_perfil">
+            <p>AGREGAR USUARIO</p>
+          </div>
+    </header>
+
+    <main>
+
+        <form method="POST" action="/agregar_user">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-primary alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <br>
+            <div>
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" onkeydown="blockSpacebar(event)" oninput="validateInput()" required>
+                <p id="error-length" style="color: red; display: none;">Debe haber mínimo 4 caracteres</p>
+                <p id="error-space" style="color: red; display: none;">No es posible dejar espacios</p>
+            </div>
+                  
+            <div>
+                <label for="password">Contraseña: <i class="far fa-eye" onclick="verContrasena()"></i></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="fullname">Nombre Completo:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div>
+                <label for="rol">Rol:</label>
+                <select id="rol" name="rol" required>
+                    <option value="">Seleccione un rol</option>
+                    <option value="M.I WEB">M.I WEB</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button id="submitBtn" type="submit">AGREGAR</button>
+
+        </form>
+
+
+
+
+    </main>
+    <script src="../static/js/admin_js/agregar_user.js"></script>
+
+
+</body>
+
+</html>

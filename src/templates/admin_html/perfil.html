@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+
+  <link rel="stylesheet" href="../static/css/admin_css/perfil.css">
+  <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+  <header style="user-select: none;">
+    <div class="icon__menu">
+      <i class="fas fa-arrow-left" onclick="goBack()"></i>
+    </div>
+    <div class="top__text">
+      <p>VOLVER</p>
+    </div>
+
+    <div class="mi_perfil">
+      <p>MI PERFIL</p>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <a class="btn btn-cerrarsession" href="{{ url_for('logout') }}">Cerrar Sesion</a>
+    </div>
+  </header>
+
+
+
+
+  <main>
+    
+
+    <div class="wrapper">
+      <main>
+        <p class="titulo" style="user-select: none;">MADERAS INDUSTRIALES S.A.S</p>
+        <img src="../static/img/splash.png" style="user-select: none; margin-top: 20px;" alt="Descripción de la imagen" class="imagen-principal">
+        <div class="fullname" style="margin-top: 20px;">
+          <p>Nombre: {{ current_user.fullname }}</p>
+        </div>
+        <div class="username" style="margin-top: 20px;">
+          <p>Usuario: {{ current_user.username }}</p>
+        </div>
+        <div class="rol" style="margin-top: 20px;">
+          <p>ROL: {{ current_user.rol }}</p>
+        </div>
+      </main>
+    </div>
+
+  </main>
+
+
+  <script src="../static/js/admin_js/perfil.js"></script>
+</body>
+
+</html>

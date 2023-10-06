@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="icon" type="image/png" href="../static/img/logo_blanco.png">
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-bars" id="btn_open"></i>
+        </div>
+        <div class="top__text" style="user-select: none;">
+            <p>Bienvenid@ {{ current_user.fullname }}!</p>
+        </div>
+
+
+        {% if current_user.rol == 'ADMIN' %}
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="user-select: none;">
+            <a class="btn btn-adminuser" href="{{ url_for('admin_user') }}">Administrar Usuarios</a>
+            <a class="btn btn-cerrarsession" href="{{ url_for('logout') }}">Cerrar Sesion</a>
+        </div>
+        {% elif current_user.rol == 'M.I WEB' %}
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="user-select: none;">
+            <a class="btn btn-adminuser" href="{{ url_for('perfil') }}">Mi Perfil</a>
+            <a class="btn btn-cerrarsession" href="{{ url_for('logout') }}">Cerrar Sesion</a>
+        </div>
+        {% endif %}
+    </header>
+
+
+
+    <div class="menu__side" id="menu_side" style="user-select: none;">
+
+        <div class="name__page">
+            <!-- <img src="../static/img/logo_blanco.png" alt="Logo M.I software"> -->
+            <h4><em>M.I software</em></h4>
+        </div>
+
+
+        <div class="options__menu">
+
+            <a class="selected">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+
+            <a href="{{ url_for('info_prov_val') }}">
+                <div class="option">
+                    <i class="fas fa-tree"></i>
+                    <h4>Informe MP</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-sharp fa-solid fa-industry"></i>
+                    <h4>Planta e Inventario</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h4>Clientes, Ficha TEC. y Orden</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-truck-moving"></i>
+                    <h4>Despachos</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h4>Bodega</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fa-solid fa-light fa-newspaper"></i>
+                    <h4>Resumen</h4>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+    <div class="help-icon" style="user-select: none;">
+        <i class="fas fa-question-circle" style="color: #135D9B; font-size: 20px;"></i>
+        <div class="tooltip">
+            <span>Bienvenid@ {{ current_user.fullname }} a<br><em>M.I software!</em>,
+                haciendo clic directamente en los iconos del menú podrás dirigirte a los módulos,
+                para más detalles despliega el menú lateral dando clic al icono que se encuentra en la parte superior
+                izquierda de tres barras
+            </span>
+        </div>
+    </div>
+
+    <main><br>
+        <p class="titulo" style="user-select: none;">MADERAS INDUSTRIALES S.A.S</p><br>
+
+        <img src="../static/img/splash.png" style="user-select: none;" alt="Descripción de la imagen" class="imagen-principal"><br><br>
+
+        <p class="mensaje-principal" style="user-select: none;">USA EL MENÚ PARA EMPEZAR A TRABAJAR</p><br>
+    </main>
+
+
+    <script src="../static/js/home.js"></script>
+</body>
+
+</html>
